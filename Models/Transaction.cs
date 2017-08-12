@@ -10,9 +10,9 @@ namespace MScBank.Models
         public int TransactionId { get; set; }
 
         public decimal Amount { get; set; }
+        
+        public BankAccountBase parentAccount { get; set; }
 
         public int AccountId { get; set; }
-
-        public BankAccountBase parentAccount { get; set; }
     }
 }
