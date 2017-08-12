@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center"><strong>Welcome to Mounty Shire Community Bank</strong></h1>
+        <img src="~/Content/Pics/MainThemePic.jpg" class="img-responsive img-circle center-block" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>ATM</h2>
+        <p>
+            Use an ATM for basic money transactions.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Fire up ATM</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>LogIn</h2>
+        <p>Login if already an online account holder</p>
+        <p>@Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Register</h2>
+        <p>Not yet a member? Do not miss out! Register for free and start enjoying the many benefits straight away!</p>
+        <p>@Html.ActionLink("Regiter", "Register", "Account", null, new { @class = "btn btn-default" })</p>
+    </div>
+</div>
