@@ -20,7 +20,7 @@ namespace MScBank.Models
 
         public List<Transaction> transactions { get; set; }
 
-        public ApplicationUser Owner { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
 
         public int ApplicationUserId { get; set; }
     }

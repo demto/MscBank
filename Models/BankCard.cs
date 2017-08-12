@@ -18,7 +18,7 @@ namespace MScBank.Models
 
         public CardStatus status { get; set; }
         
-        public CurrentAccount parentAccount { get; set; }
+        public virtual CurrentAccount parentAccount { get; set; }
 
         public int CurrentAccountId { get; set; }
 

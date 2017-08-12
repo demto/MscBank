@@ -11,8 +11,8 @@ namespace MScBank.Models
 
         public decimal Amount { get; set; }
         
-        public BankAccountBase parentAccount { get; set; }
+        public virtual BankAccountBase ParentAccount { get; set; }
 
-        public int AccountId { get; set; }
+        public int ParentAccountId { get; set; }
     }
 }
