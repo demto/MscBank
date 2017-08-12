@@ -5,6 +5,7 @@ using System.Web;
 
 namespace MScBank.Models
 {
+    //Test
     public abstract class BankAccountBase
     {
         public int AccountID { get; set; }
