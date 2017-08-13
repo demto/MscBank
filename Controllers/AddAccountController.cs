@@ -13,7 +13,7 @@ namespace MScBank.Controllers
     public class AddAccountController : Controller
     {
         // GET: AddAccount
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             var account = new CurrentAccount {
 
@@ -30,11 +30,17 @@ namespace MScBank.Controllers
                 Email = "asdf@asdf.com",
                 Address = "afadasd"
             };
-            
 
-            customer.MyAccounts.Add(account);
+            using (var _context = new ApplicationDbContext()) {
 
-            return View(customer);
+                var user = (ApplicationUser) _context.Users.Where(u => u.Id == id);
+                user.MyAccounts.Add(account);
+
+                return View(user);
+            }
+                //customer.MyAccounts.Add(account);
+
+           
         }
     }
 }

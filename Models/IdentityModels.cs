@@ -42,5 +42,6 @@ namespace MScBank.Models
         {
             return new ApplicationDbContext();
         }
+        
     }
 }
