@@ -12,6 +12,8 @@ namespace MScBank.Models
     public class ApplicationUser : IdentityUser
     {
         public List<BankAccountBase> MyAccounts { get; set; }
+        public int BankAccountBaseId { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -28,6 +30,9 @@ namespace MScBank.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<BankAccountBase> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

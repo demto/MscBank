@@ -7,9 +7,12 @@ namespace MScBank.Models
 {
     public class CurrentAccount : BankAccountBase, ICardHolder
     {
-        public BankCard BankCard { get; set; }
+        public virtual BankCard BankCard { get; set; }
+
+        public int? BankCardId { get; set; }
 
         public bool HasCard() => BankCard == null ? false : true;
+
 
         public void CancelCard()
         {

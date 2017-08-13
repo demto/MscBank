@@ -7,12 +7,10 @@ namespace MScBank.Models
 {
     public class Transaction
     {
-        public int TransactionId { get; set; }
+        public int Id { get; set; }
 
         public decimal Amount { get; set; }
-        
-        public virtual BankAccountBase ParentAccount { get; set; }
 
-        public int ParentAccountId { get; set; }
+        public DateTime? TransactionTimeStamp { get; set; }
     }
 }

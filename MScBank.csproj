@@ -182,11 +182,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddAccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708130735535_InitialCreate.cs" />
+    <Compile Include="Migrations\201708130735535_InitialCreate.Designer.cs">
+      <DependentUpon>201708130735535_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708131031205_InitialMigration.cs" />
+    <Compile Include="Migrations\201708131031205_InitialMigration.Designer.cs">
+      <DependentUpon>201708131031205_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708131035230_AddedTransactionListToAccountBase.cs" />
+    <Compile Include="Migrations\201708131035230_AddedTransactionListToAccountBase.Designer.cs">
+      <DependentUpon>201708131035230_AddedTransactionListToAccountBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708131136397_adddeddbsetstodbcontext.cs" />
+    <Compile Include="Migrations\201708131136397_adddeddbsetstodbcontext.Designer.cs">
+      <DependentUpon>201708131136397_adddeddbsetstodbcontext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
     <Compile Include="Models\BankCard.cs" />
@@ -260,9 +278,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\LoggedInIndex.cshtml" />
+    <Content Include="Views\AddAccount\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -278,6 +299,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708130735535_InitialCreate.resx">
+      <DependentUpon>201708130735535_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708131031205_InitialMigration.resx">
+      <DependentUpon>201708131031205_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708131035230_AddedTransactionListToAccountBase.resx">
+      <DependentUpon>201708131035230_AddedTransactionListToAccountBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708131136397_adddeddbsetstodbcontext.resx">
+      <DependentUpon>201708131136397_adddeddbsetstodbcontext.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

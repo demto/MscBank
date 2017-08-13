@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace MScBank.Models
 {
-    //Test
+   
     public abstract class BankAccountBase
     {
-        public int AccountID { get; set; }
+
+        public int Id { get; set; }
 
         public decimal Balance { get; set; }
 
         public string SortCode { get; set; }
 
         public string AccountNumber { get; set; }
+        
+        public virtual List<Transaction> Transactions { get; set; }
 
-        public virtual int TransactionId { get; set; }
-
-        public List<Transaction> transactions { get; set; }
-
-        public virtual ApplicationUser Owner { get; set; }
-
-        public int ApplicationUserId { get; set; }
+        public int TransactionId { get; set; }
     }
 }

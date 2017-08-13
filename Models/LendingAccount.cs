@@ -10,6 +10,7 @@ namespace MScBank.Models
         public double InterestRate { get; set; }
 
         public decimal Payment { get; set; }
+
         public void AdjustBalanceWithInterest()
         {
             //must apply interest formula

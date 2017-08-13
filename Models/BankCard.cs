@@ -8,7 +8,7 @@ namespace MScBank.Models
     public class BankCard
     {
 
-        public int CardId { get; set; }
+        public int Id { get; set; }
 
         public string CardNumber { get; set; }
 
@@ -16,17 +16,17 @@ namespace MScBank.Models
 
         public DateTime ExpiryDate { get; set; }
 
-        public CardStatus status { get; set; }
-        
-        public virtual CurrentAccount parentAccount { get; set; }
-
-        public int CurrentAccountId { get; set; }
+        public CardStatus Status { get; set; }
 
         public enum CardStatus
         {
             Lost,
             Open,
             Blocked
+        }
+
+        public BankCard() {
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MScBank.Models
@@ -74,7 +75,7 @@ namespace MScBank.Models
 
         [Required]
         [Display(Name = "Dateof Birth")]
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         [Display(Name = "Phone Number")]
