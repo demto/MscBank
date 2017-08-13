@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.bordered-box {
+    outline : 2px solid;
+    outline-color : mediumseagreen;
+    padding : 20px;    
+}
+
+.addMargin {
+    margin : 2%;
+}

@@ -4,6 +4,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>@Model.FirstName</h2>
-<h2>@Model.LasttName</h2>
+<div class="row">
+    <h1 class="center-block">@Model.FullName</h1>
+</div>
+
+<div class="row">
+    <div class="col-mid-5">
+                <a href="#" class="btn btn-primary btn-lg btn-block addMargin">My Accounts</a>
+                <a href="#" class="btn btn-primary btn-lg btn-block addMargin">Apply for new account</a>
+    </div>        
+    <div class="col-mid-2">
+        <img src="~/Content/Pics/LoggedINIndexPic.jpg" class="img-responsive img-rounded"/>
+    </div>
+    
+</div>
 

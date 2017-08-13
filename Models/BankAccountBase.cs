@@ -22,5 +22,9 @@ namespace MScBank.Models
         public virtual List<Transaction> Transactions { get; set; }
 
         public int TransactionId { get; set; }
+
+        public ApplicationUser owner { get; set; }
+
+        public string ApplicationUserId { get; set; }
     }
 }

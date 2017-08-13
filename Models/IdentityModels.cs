@@ -11,13 +11,12 @@ namespace MScBank.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public List<BankAccountBase> MyAccounts { get; set; }
-        public int BankAccountBaseId { get; set; }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName { get => $"{FirstName} {LastName}"; }  
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }
+        public List<BankAccountBase> MyAccounts { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -31,6 +30,7 @@ namespace MScBank.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<BankAccountBase> Accounts { get; set; }
+        public DbSet<CurrentAccount> CurrentAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
 
         public ApplicationDbContext()

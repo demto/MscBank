@@ -12,5 +12,9 @@ namespace MScBank.Models
         public decimal Amount { get; set; }
 
         public DateTime? TransactionTimeStamp { get; set; }
+
+        public BankAccountBase parentAccount { get; set; }
+
+        public int BankAccountBaseId { get; set; }
     }
 }
