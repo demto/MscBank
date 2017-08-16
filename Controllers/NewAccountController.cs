@@ -11,15 +11,14 @@ namespace MScBank.Controllers
 {
     public class NewAccountController : Controller
     {
-        private ApplicationUser currentUser;
-
+        
         // GET: NewAccount
         public ActionResult Index()
         {
-            using(var _context = new ApplicationDbContext()) {
-                var uId = User.Identity.GetUserId();
-                currentUser = LoadUser.GetCurrentUser(_context, uId);
-            }
+            //using(var _context = new ApplicationDbContext()) {
+            //    var uId = User.Identity.GetUserId();
+            //    var currentUser = LoadUser.GetCurrentUser(_context, uId);
+            //}
             
             return View();
         }
@@ -34,22 +33,30 @@ namespace MScBank.Controllers
         [HttpPost]
         public ActionResult CreateCurrentAccount(CurrentAccount account) {
 
-            using (var _context = new ApplicationDbContext()) {
-                var uId = User.Identity.GetUserId();
-                currentUser = LoadUser.GetCurrentUser(_context, uId);
+            var uId = User.Identity.GetUserId();     
 
-                currentUser.MyAccounts.Add(new CurrentAccount {
+            using (var _context = new ApplicationDbContext()) {
+                
+
+                var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
+                var highestAccountId = _context.Accounts.Max(a => a.Id);
+                var accountId = highestAccountId++;
+
+                var newCurrentAccount = new CurrentAccount {
 
                     Balance = account.Balance,
                     SortCode = "12-34-56",
-                    AccountNumber = account.Id.ToString().PadLeft(8, '0'),
                     Transactions = new List<Transaction>(),
-                    ApplicationUserId = currentUser.Id,
-                });
+                    AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
+                    ApplicationUserId = uId
+                };
 
+                _context.Accounts.Add(newCurrentAccount);
                 _context.SaveChanges();
-            }
 
+               
+            }
+                
             return RedirectToAction("Index", "LoggedIn");
         }
     }

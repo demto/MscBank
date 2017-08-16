@@ -10,11 +10,9 @@ namespace MScBank.Models
    
     public abstract class BankAccountBase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int Id { get; set; }
 
-        [Required]
         public decimal Balance { get; set; }
 
         public string SortCode { get; set; }
