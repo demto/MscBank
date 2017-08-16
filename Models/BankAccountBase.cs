@@ -7,10 +7,11 @@ using System.Web;
 
 namespace MScBank.Models
 {
-   
+    
     public abstract class BankAccountBase
     {
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public decimal Balance { get; set; }

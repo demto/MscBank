@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201708151720212_AddedRequiredAttributeInLending.Designer.cs">
       <DependentUpon>201708151720212_AddedRequiredAttributeInLending.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708161747511_Annotation change.cs" />
+    <Compile Include="Migrations\201708161747511_Annotation change.Designer.cs">
+      <DependentUpon>201708161747511_Annotation change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -243,6 +247,7 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\BankAccountUtils\SavingsRate.cs" />
     <Compile Include="Utils\UserAccountUtils\LoadUser.cs" />
     <Compile Include="ViewModels\NewAccountViewModel.cs" />
   </ItemGroup>
@@ -307,6 +312,10 @@
     <Content Include="Views\LoggedIn\Index.cshtml" />
     <Content Include="Views\NewAccount\Index.cshtml" />
     <Content Include="Views\NewAccount\DebitAccountForm.cshtml" />
+    <Content Include="Views\NewAccount\SavingsAccountForm.cshtml" />
+    <Content Include="Views\NewAccount\CreditCardForm.cshtml" />
+    <Content Include="Views\NewAccount\LoanForm.cshtml" />
+    <Content Include="Views\NewAccount\MortgageForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708151720212_AddedRequiredAttributeInLending.resx">
       <DependentUpon>201708151720212_AddedRequiredAttributeInLending.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708161747511_Annotation change.resx">
+      <DependentUpon>201708161747511_Annotation change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MScBank.ViewModels;
+using MScBank.Utils.BankAccountUtils;
 
 namespace MScBank.Controllers
 {
@@ -15,20 +17,53 @@ namespace MScBank.Controllers
         // GET: NewAccount
         public ActionResult Index()
         {
-            //using(var _context = new ApplicationDbContext()) {
-            //    var uId = User.Identity.GetUserId();
-            //    var currentUser = LoadUser.GetCurrentUser(_context, uId);
-            //}
             
             return View();
         }
 
-        // POST: NewCurrentAccount
+        // GET: NewCurrentAccount
         
         public ActionResult DebitAccountForm() {
             
             return View();
         }
+
+        public ActionResult SavingsAccountForm() {
+
+            var viewModel = new NewAccountViewModel {
+                Rate = 1
+            };
+
+            return View();
+        }
+
+        public ActionResult CreditCardForm() {
+
+            var viewModel = new NewAccountViewModel {
+                Rate = 20
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult LoanForm() {
+
+            var viewModel = new NewAccountViewModel {
+                Rate = 10
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult MortgageForm() {
+
+            var viewModel = new NewAccountViewModel {
+                Rate = 2
+            };
+
+            return View(viewModel);
+        }
+
 
         [HttpPost]
         public ActionResult CreateCurrentAccount(CurrentAccount account) {
@@ -58,6 +93,136 @@ namespace MScBank.Controllers
                
             }
                 
+            return RedirectToAction("Index", "LoggedIn");
+        }
+
+        [HttpPost]
+        public ActionResult CreateSavingsAccount(SavingsAccount account) {
+
+            var uId = User.Identity.GetUserId();
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var accountId = 0;
+
+                var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
+                var highestAccountId = _context.Accounts.Max(a => a.Id);
+                accountId = highestAccountId++;
+
+                var newSavingsAccount = new SavingsAccount {
+
+                    Balance = account.Balance,
+                    InterestRate = 1,
+                    SortCode = "12-34-56",
+                    Transactions = new List<Transaction>(),
+                    AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
+                    ApplicationUserId = uId
+                };
+
+                _context.Accounts.Add((SavingsAccount) newSavingsAccount);
+                _context.SaveChanges();
+
+            }
+
+            return RedirectToAction("Index", "LoggedIn");
+        }
+
+        [HttpPost]
+        public ActionResult CreateCreditCardAccount(CreditCard cc) {
+
+            var uId = User.Identity.GetUserId();
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var accountId = 0;
+
+                var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
+                var highestAccountId = _context.Accounts.Max(a => a.Id);
+                accountId = highestAccountId++;
+
+                var newCc = new CreditCard {
+
+                    Limit = cc.Limit,
+                    InterestRate = 20,
+                    SortCode = "12-34-56",
+                    Transactions = new List<Transaction>(),
+                    AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
+                    ApplicationUserId = uId
+                };
+
+                _context.Accounts.Add(newCc);
+                _context.SaveChanges();
+
+
+            }
+
+            return RedirectToAction("Index", "LoggedIn");
+        }
+
+        [HttpPost]
+        public ActionResult CreateLoanAccount(Loan loan) {
+
+            var uId = User.Identity.GetUserId();
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var accountId = 0;
+
+                //var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
+                var highestAccountId = _context.Accounts.Max(a => a.Id);
+                accountId = highestAccountId++;
+
+                var newLoan = new Loan {
+
+                    Payment = 1, // needs to be calculated
+                    LendingAmount = loan.LendingAmount,
+                    Balance = -(loan.LendingAmount),
+                    Term = loan.Term,
+                    InterestRate= 10,
+                    SortCode = "12-34-56",
+                    Transactions = new List<Transaction>(),
+                    AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
+                    ApplicationUserId = uId
+                };
+
+                _context.Accounts.Add(newLoan);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "LoggedIn");
+        }
+
+        [HttpPost]
+        public ActionResult CreateMortgageAccount(Mortgage mortgage) {
+
+            var uId = User.Identity.GetUserId();
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var accountId = 0;
+
+                var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
+                var highestAccountId = _context.Accounts.Max(a => a.Id);
+                accountId = highestAccountId++;
+
+                var newMortgage = new Mortgage {
+
+                    Payment = 1, // needs to be calculated
+                    LendingAmount = mortgage.LendingAmount,
+                    Balance = -(mortgage.LendingAmount),
+                    Term = mortgage.Term,
+                    InterestRate = 2,
+                    SecurityAddress = mortgage.SecurityAddress,
+                    SortCode = "12-34-56",
+                    Transactions = new List<Transaction>(),
+                    AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
+                    ApplicationUserId = uId
+                };
+
+                _context.Accounts.Add(newMortgage);
+                _context.SaveChanges();
+            }
+
             return RedirectToAction("Index", "LoggedIn");
         }
     }

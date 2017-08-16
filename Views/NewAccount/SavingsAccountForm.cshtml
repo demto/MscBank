@@ -3,7 +3,7 @@
     ViewBag.Title = "DebitAccountForm";
 }
 
-<h2>Open new Account</h2>
+<h2>Open new Savings Account</h2>
 <br />
 <p>A current account is for day to day use where your salary normally goes into this account and your bills and shoppings come off it.</p>
 <p>A savings account is for saving purposes where you can earn interest on your average balance. Current Savings rate is 1%</p>
@@ -11,7 +11,7 @@
 <p>Please enter an opening balance: </p>
 
 
-@using (Html.BeginForm("CreateCurrentAccount", "NewAccount")) {
+@using (Html.BeginForm("CreateSavingsAccount", "NewAccount")) {
 
     <div class="form-group">
         @Html.LabelFor(m => m.Account.Balance)
@@ -19,4 +19,3 @@
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }
-

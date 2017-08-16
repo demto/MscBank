@@ -1,0 +1,29 @@
+﻿@model MScBank.ViewModels.NewAccountViewModel
+@{
+    ViewBag.Title = "DebitAccountForm";
+}
+
+<h2>Open new Savings Account</h2>
+<br />
+<p>A credit card is for day to day use which can serve as contingency funds and can improve credit rating if used smart. Current interest is 20%.</p>
+<p>Currently we provide with an online based credit card which has no physical card.</p>
+<br />
+<p>A loan is a one off big payment into your account which can be used for several different things incuding a bigger purchase such as a car</p>
+<br />
+<p>(but not a home) or paying off existing debt. It cannot be used for gambling, for unlowful purposes, for investments or for buying a property.</p>
+<br />
+<p>A mortgage is a big loan secured against a home which is primarily used for a home purchase.</p>
+<br />
+<p>Please enter an opening balance: </p>
+<br />
+
+@using (Html.BeginForm("CreateLoanAccount", "NewAccount")) {
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Loan.LendingAmount)
+        @Html.TextBoxFor(m => m.Loan.LendingAmount, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Loan.Term)
+        @Html.TextBoxFor(m => m.Loan.Term, new { @class = "form-control" })
+    </div>
+    <button class="btn btn-primary" type="submit">Open</button>
+}

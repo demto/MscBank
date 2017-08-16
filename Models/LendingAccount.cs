@@ -9,8 +9,7 @@ namespace MScBank.Models
     public abstract class LendingAccount : BankAccountBase, IInterestBearing
     {
         public double InterestRate { get; set; }
-
-        [Required]
+        
         public decimal Payment { get; set; }
 
         public void AdjustBalanceWithInterest()

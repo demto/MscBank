@@ -1,4 +1,4 @@
-﻿
+﻿@model MScBank.ViewModels.NewAccountViewModel
 @{
     ViewBag.Title = "NewAccountIndex";
 }
@@ -8,14 +8,14 @@
     <div class="bordered-box">
         <h2>Accounts for day to day use and Savings</h2>
         <p>@Html.ActionLink("Current Account", "DebitAccountForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        <p>@Html.ActionLink("Savings Account", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+        <p>@Html.ActionLink("Savings Account", "SavingsAccountForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
     </div>    
 </div>
 <div class="col-md-6">
     <div class="bordered-box">
-        <p>@Html.ActionLink("Credit Card", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        <p>@Html.ActionLink("Loan", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        <p>@Html.ActionLink("Mortgage", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+        <p>@Html.ActionLink("Credit Card", "CreditCardForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+        <p>@Html.ActionLink("Loan", "LoanForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+        <p>@Html.ActionLink("Mortgage", "MortgageForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
     </div>
     <h2>Accounts for borrowing needs</h2>    
 </div>
