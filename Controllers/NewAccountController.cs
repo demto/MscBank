@@ -36,11 +36,12 @@ namespace MScBank.Controllers
             var uId = User.Identity.GetUserId();     
 
             using (var _context = new ApplicationDbContext()) {
-                
+
+                var accountId = 0;
 
                 var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
                 var highestAccountId = _context.Accounts.Max(a => a.Id);
-                var accountId = highestAccountId++;
+                accountId = highestAccountId++;
 
                 var newCurrentAccount = new CurrentAccount {
 
