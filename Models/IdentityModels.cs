@@ -18,7 +18,7 @@ namespace MScBank.Models
         public string LastName { get; set; }
         public string FullName { get => $"{FirstName} {LastName}"; }  
         [Required]
-        [Min18yrsToSignUpValidation]
+        //[Min18yrsToSignUpValidation] causes an error
         public DateTime DateOfBirth { get; set; }
         [Required]
         public string Address { get; set; }
