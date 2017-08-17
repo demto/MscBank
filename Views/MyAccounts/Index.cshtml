@@ -1,0 +1,34 @@
+﻿@model MScBank.ViewModels.MyAccountsViewmodel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>My Accounts</h1>
+
+<br /> <br />
+@if (Model == null) {
+    <p class="text-warning">Sorry, you have no open accounts at the moment!</p>
+    <p>Why don't you open an account with us now!</p>
+    @Html.ActionLink("Open an acccount", "Index", "NewAccount")
+} else {
+    <table class="table-bordered table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Account</th>
+                <th>Balance</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var account in Model.MyAccounts) {
+                <tr>
+                    <td>@account.</td>
+                    <td>@account.Balance</td>
+                    <td>@Html.ActionLink("Details", "Details", "MyAccounts", new { id = account.ApplicationUserId }, null)</td>
+                </tr>
+            }
+        </tbody>
+</table>
+}
+
+

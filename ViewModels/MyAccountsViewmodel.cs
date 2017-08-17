@@ -13,6 +13,6 @@ namespace MScBank.ViewModels {
 
         public IEnumerable<BankAccountBase> MyAccounts { get; set; }
 
-        public IEnumerable<Transaction> transactions { get; set; }
+        public IEnumerable<Transaction> Transactions { get; set; }
     }
 }

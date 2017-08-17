@@ -26,5 +26,9 @@ namespace MScBank.Models
         public ApplicationUser Owner { get; set; }
 
         public string ApplicationUserId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Type { get; set; }
     }
 }
