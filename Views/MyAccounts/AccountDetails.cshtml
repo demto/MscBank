@@ -1,0 +1,24 @@
+﻿@model MScBank.ViewModels.MyAccountsViewmodel
+@{
+    ViewBag.Title = "AccountDetails";
+}
+
+<h2>My AccountDetails</h2>
+<p>@Model.User.FullName</p>
+
+
+@Model.MyAccount.AccountNumber
+@Model.MyAccount.Name
+@Model.MyAccount.SortCode
+
+@if (Model.Transactions.Any()) {
+    foreach (var t in Model.Transactions) {
+        <p>@t.Amount</p>
+        <p>@t.TransactionTimeStamp</p>
+    }
+}else{
+    <p class="text-danger">No transactions on this account yet!</p>
+}
+
+
+

@@ -28,7 +28,7 @@
                             <td class="padTablerow">@account.Name</td>
                             <td class="padTablerow">@account.Type</td>
                             <td class="padTablerow">@account.Balance</td>
-                            <td class="padTablerow">@Html.ActionLink("Details", "Details", "MyAccounts", new { id = account.ApplicationUserId }, null)</td>
+                            <td class="padTablerow">@Html.ActionLink("Details", "AccountDetails", "MyAccounts", new { accountId = account.Id }, null)</td>
                         </tr>
                     }
                 </tbody>

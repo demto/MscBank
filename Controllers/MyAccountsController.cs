@@ -1,4 +1,5 @@
-﻿using MScBank.Models;
+﻿using Microsoft.AspNet.Identity;
+using MScBank.Models;
 using MScBank.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,25 +31,24 @@ namespace MScBank.Controllers
             return View(viewModel);
         }
 
-        public ActionResult AccountDetails(string uId) {
+        public ActionResult AccountDetails(int accountId) {
 
             using (var _context = new ApplicationDbContext()) {
 
-                var currentUser = (ApplicationUser)_context.Users.Where(u => u.Id == uId);
-                var currentUserAccounts = _context.Accounts.Where(a => a.ApplicationUserId == uId).ToList();
-                var cards = _context.BankCards.Where(c => c.ParentAccount.Owner == currentUser).ToList();
-                var transactions = _context.Transactions.Where(t => t.ParentAccount.Owner == currentUser);
+                var currentUserId = User.Identity.GetUserId();
+                var currentUser = _context.Users.SingleOrDefault(u => u.Id == currentUserId);
+                var currentUserAccount = _context.Accounts.SingleOrDefault(a => a.Id == accountId);
+                var card = _context.BankCards.SingleOrDefault(c => c.ParentAccount.Id == accountId);
+                var transactions = _context.Transactions.Where(t => t.ParentAccount.Id == accountId).ToList();
 
                 var viewModel = new MyAccountsViewmodel {
                     User = currentUser,
-                    MyAccounts = currentUserAccounts,
-                    Card = cards,
+                    MyAccount = currentUserAccount,
+                    Card = card,
                     Transactions = transactions
                 };
-
-                return View();
-            }
-                
+                    return View(viewModel);
+            }                
         }
     }
 }

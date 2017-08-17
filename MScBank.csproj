@@ -251,6 +251,10 @@
     <Compile Include="Migrations\201708172128295_BankCardAddedToDbContext.Designer.cs">
       <DependentUpon>201708172128295_BankCardAddedToDbContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708172227286_ChangedForeignKeyDependencyOnModels.cs" />
+    <Compile Include="Migrations\201708172227286_ChangedForeignKeyDependencyOnModels.Designer.cs">
+      <DependentUpon>201708172227286_ChangedForeignKeyDependencyOnModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -344,6 +348,7 @@
     <Content Include="Views\NewAccount\LoanForm.cshtml" />
     <Content Include="Views\NewAccount\MortgageForm.cshtml" />
     <Content Include="Views\MyAccounts\Index.cshtml" />
+    <Content Include="Views\MyAccounts\AccountDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -410,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708172128295_BankCardAddedToDbContext.resx">
       <DependentUpon>201708172128295_BankCardAddedToDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708172227286_ChangedForeignKeyDependencyOnModels.resx">
+      <DependentUpon>201708172227286_ChangedForeignKeyDependencyOnModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
