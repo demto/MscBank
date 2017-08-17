@@ -9,12 +9,12 @@ namespace MScBank.Models
 {
     public class BankCard
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int Id { get; set; }
 
         public string CardNumber { get; set; }
 
+        [Required]
         public int PinNumber { get; set; }
 
         public DateTime ExpiryDate { get; set; }

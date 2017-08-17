@@ -8,6 +8,7 @@ namespace MScBank.Models
 {
     public abstract class LendingAccount : BankAccountBase, IInterestBearing
     {
+        [Required]
         public double InterestRate { get; set; }
         
         public decimal Payment { get; set; }

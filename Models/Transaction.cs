@@ -9,15 +9,13 @@ namespace MScBank.Models
 {
     public class Transaction
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public decimal Amount { get; set; }
 
         public DateTime? TransactionTimeStamp { get; set; }
 
-        public BankAccountBase parentAccount { get; set; }
+        public BankAccountBase ParentAccount { get; set; }
 
         public int BankAccountBaseId { get; set; }
     }

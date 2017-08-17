@@ -6,7 +6,7 @@ using System.Web;
 namespace MScBank.Models
 {
     public class SavingsAccount : BankAccountBase, IInterestBearing
-    {
+    {        
         public double InterestRate { get; set; }
 
         public void AdjustBalanceWithInterest()

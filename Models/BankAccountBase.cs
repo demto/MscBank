@@ -14,6 +14,7 @@ namespace MScBank.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
         public decimal Balance { get; set; }
 
         public string SortCode { get; set; }
@@ -22,7 +23,7 @@ namespace MScBank.Models
         
         public virtual List<Transaction> Transactions { get; set; }
 
-        public ApplicationUser owner { get; set; }
+        public ApplicationUser Owner { get; set; }
 
         public string ApplicationUserId { get; set; }
     }
