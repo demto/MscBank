@@ -5,16 +5,22 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MScBank.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public string FullName { get => $"{FirstName} {LastName}"; }  
+        [Required]
+        [Min18yrsToSignUpValidation]
         public DateTime DateOfBirth { get; set; }
+        [Required]
         public string Address { get; set; }
         public List<BankAccountBase> MyAccounts { get; set; }
 

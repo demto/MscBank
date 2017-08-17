@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoggedInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyAccountsController.cs" />
     <Compile Include="Controllers\NewAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -242,6 +243,7 @@
     <Compile Include="Models\LendingAccount.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Min18yrsToSignUpValidation.cs" />
     <Compile Include="Models\Mortgage.cs" />
     <Compile Include="Models\SavingsAccount.cs" />
     <Compile Include="Models\Transaction.cs" />
@@ -259,6 +261,7 @@
     <Content Include="Content\Pics\LoggedINIndexPic.jpg" />
     <Content Include="Content\Pics\LoginPagePic.jpg" />
     <Content Include="Content\Pics\MainThemePic.jpg" />
+    <Content Include="Content\Pics\RegisterPic.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -322,6 +325,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Customer\" />
+    <Folder Include="Views\MyAccounts\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
