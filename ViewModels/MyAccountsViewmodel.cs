@@ -9,7 +9,7 @@ namespace MScBank.ViewModels {
 
         public ApplicationUser User { get; set; }
 
-        public BankCard Card { get; set; }
+        public IEnumerable<BankCard> Card { get; set; }
 
         public IEnumerable<BankAccountBase> MyAccounts { get; set; }
 

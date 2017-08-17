@@ -35,6 +35,12 @@
         @Html.LabelFor(m => m.Mortgage.SecurityAddress)
         @Html.TextBoxFor(m => m.Mortgage.SecurityAddress, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Mortgage.SecurityAddress)
+
+        <br /><br />
+
+        @Html.LabelFor(m => m.Mortgage.Name)
+        @Html.TextBoxFor(m => m.Mortgage.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Mortgage.Name)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }

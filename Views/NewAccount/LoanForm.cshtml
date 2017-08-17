@@ -29,6 +29,12 @@
         @Html.LabelFor(m => m.Loan.Term)
         @Html.TextBoxFor(m => m.Loan.Term, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Loan.Term)
+
+        <br /><br />
+
+        @Html.LabelFor(m => m.Loan.Name)
+        @Html.TextBoxFor(m => m.Loan.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Loan.Name)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }

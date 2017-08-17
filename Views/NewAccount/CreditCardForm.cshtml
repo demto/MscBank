@@ -23,6 +23,12 @@
         @Html.LabelFor(m => m.CreditCard.Limit)
         @Html.TextBoxFor(m => m.CreditCard.Limit, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.CreditCard.Limit)
+
+        <br /><br />
+
+        @Html.LabelFor(m => m.CreditCard.Name)
+        @Html.TextBoxFor(m => m.CreditCard.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CreditCard.Name)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }

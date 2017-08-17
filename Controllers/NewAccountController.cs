@@ -90,7 +90,9 @@ namespace MScBank.Controllers
                         SortCode = "12-34-56",
                         Transactions = new List<Transaction>(),
                         AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
-                        ApplicationUserId = uId
+                        ApplicationUserId = uId,
+                        Name = account.Name,
+                        Type = "Current Account"
                     };
 
                     _context.Accounts.Add(newCurrentAccount);
@@ -129,7 +131,9 @@ namespace MScBank.Controllers
                     SortCode = "12-34-56",
                     Transactions = new List<Transaction>(),
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
-                    ApplicationUserId = uId
+                    ApplicationUserId = uId,
+                    Name = account.Name,
+                    Type = "Savings Account"
                 };
 
                 _context.Accounts.Add((SavingsAccount) newSavingsAccount);
@@ -165,7 +169,9 @@ namespace MScBank.Controllers
                     SortCode = "12-34-56",
                     Transactions = new List<Transaction>(),
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
-                    ApplicationUserId = uId
+                    ApplicationUserId = uId,
+                    Name = cc.Name,
+                    Type = "Credit Card Account"
                 };
 
                 _context.Accounts.Add(newCc);
@@ -205,7 +211,9 @@ namespace MScBank.Controllers
                     SortCode = "12-34-56",
                     Transactions = new List<Transaction>(),
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
-                    ApplicationUserId = uId
+                    ApplicationUserId = uId,
+                    Name = loan.Name,
+                    Type = "Loan Account"
                 };
 
                 _context.Accounts.Add(newLoan);
@@ -244,7 +252,9 @@ namespace MScBank.Controllers
                     SortCode = "12-34-56",
                     Transactions = new List<Transaction>(),
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
-                    ApplicationUserId = uId
+                    ApplicationUserId = uId,
+                    Name = mortgage.Name,
+                    Type = "Mortgage Account"
                 };
 
                 _context.Accounts.Add(newMortgage);

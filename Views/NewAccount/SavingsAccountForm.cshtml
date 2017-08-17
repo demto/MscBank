@@ -17,6 +17,12 @@
         @Html.LabelFor(m => m.Account.Balance)
         @Html.TextBoxFor(m => m.Account.Balance, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Account.Balance)
+
+        <br /><br />
+
+        @Html.LabelFor(m => m.Account.Name)
+        @Html.TextBoxFor(m => m.Account.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Account.Name)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }

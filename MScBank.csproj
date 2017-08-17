@@ -239,6 +239,18 @@
     <Compile Include="Migrations\201708171648432_AddedNewPropertiesToBankAccountBase.Designer.cs">
       <DependentUpon>201708171648432_AddedNewPropertiesToBankAccountBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708171715554_MyAccountsViewModelChange.cs" />
+    <Compile Include="Migrations\201708171715554_MyAccountsViewModelChange.Designer.cs">
+      <DependentUpon>201708171715554_MyAccountsViewModelChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708171724269_SomeChange.cs" />
+    <Compile Include="Migrations\201708171724269_SomeChange.Designer.cs">
+      <DependentUpon>201708171724269_SomeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708172128295_BankCardAddedToDbContext.cs" />
+    <Compile Include="Migrations\201708172128295_BankCardAddedToDbContext.Designer.cs">
+      <DependentUpon>201708172128295_BankCardAddedToDbContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -257,7 +269,6 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\BankAccountUtils\FindObjectType.cs" />
     <Compile Include="Utils\BankAccountUtils\SavingsRate.cs" />
     <Compile Include="Utils\UserAccountUtils\LoadUser.cs" />
     <Compile Include="ViewModels\MyAccountsViewmodel.cs" />
@@ -271,6 +282,7 @@
     <Content Include="Content\Pics\LoggedINIndexPic.jpg" />
     <Content Include="Content\Pics\LoginPagePic.jpg" />
     <Content Include="Content\Pics\MainThemePic.jpg" />
+    <Content Include="Content\Pics\MyAccountsIndexPic.jpg" />
     <Content Include="Content\Pics\RegisterPic.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -389,6 +401,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708171648432_AddedNewPropertiesToBankAccountBase.resx">
       <DependentUpon>201708171648432_AddedNewPropertiesToBankAccountBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708171715554_MyAccountsViewModelChange.resx">
+      <DependentUpon>201708171715554_MyAccountsViewModelChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708171724269_SomeChange.resx">
+      <DependentUpon>201708171724269_SomeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708172128295_BankCardAddedToDbContext.resx">
+      <DependentUpon>201708172128295_BankCardAddedToDbContext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

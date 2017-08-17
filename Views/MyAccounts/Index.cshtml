@@ -6,29 +6,39 @@
 <h1>My Accounts</h1>
 
 <br /> <br />
-@if (Model == null) {
-    <p class="text-warning">Sorry, you have no open accounts at the moment!</p>
-    <p>Why don't you open an account with us now!</p>
-    @Html.ActionLink("Open an acccount", "Index", "NewAccount")
-} else {
-    <table class="table-bordered table-hover table-responsive">
-        <thead>
-            <tr>
-                <th>Account</th>
-                <th>Balance</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var account in Model.MyAccounts) {
-                <tr>
-                    <td>@account.</td>
-                    <td>@account.Balance</td>
-                    <td>@Html.ActionLink("Details", "Details", "MyAccounts", new { id = account.ApplicationUserId }, null)</td>
-                </tr>
-            }
-        </tbody>
-</table>
-}
+<div class="row">
+    <div class="col-md-6">
+        @if (Model == null) {
+            <p class="text-warning">Sorry, you have no open accounts at the moment!</p>
+            <p>Why don't you open an account with us now!</p>
+            @Html.ActionLink("Open an acccount", "Index", "NewAccount")
+        } else {
+            <table class="table-bordered table-hover table-responsive center-block">
+                <thead>
+                    <tr>
+                        <th>Account</th>
+                        <th>Type</th>
+                        <th>Balance</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in Model.MyAccounts) {
+                        <tr>
+                            <td class="padTablerow">@account.Name</td>
+                            <td class="padTablerow">@account.Type</td>
+                            <td class="padTablerow">@account.Balance</td>
+                            <td class="padTablerow">@Html.ActionLink("Details", "Details", "MyAccounts", new { id = account.ApplicationUserId }, null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <div class="md-col-6">
+        <img src="~/Content/Pics/MyAccountsIndexPic.jpg" class="img-responsive img-rounded" width="500" />
+    </div>
+</div>
+
 
 

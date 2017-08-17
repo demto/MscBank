@@ -38,6 +38,7 @@ namespace MScBank.Models
         public DbSet<BankAccountBase> Accounts { get; set; }
         public DbSet<CurrentAccount> CurrentAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<BankCard> BankCards { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

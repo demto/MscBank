@@ -21,6 +21,10 @@ namespace MScBank.Models
 
         public CardStatus Status { get; set; }
 
+        public virtual BankAccountBase ParentAccount { get; set; }
+        
+        public int BankAccountBaseId { get; set; }
+
         public enum CardStatus
         {
             Lost,
