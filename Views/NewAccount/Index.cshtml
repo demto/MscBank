@@ -3,20 +3,38 @@
     ViewBag.Title = "NewAccountIndex";
 }
 
-<h1>Apply for a new account</h1>
+<h1 class="center-block text-center">Apply for a new account</h1>
+<br /><br />
 <div class="col-md-6">
     <div class="bordered-box">
         <h2>Accounts for day to day use and Savings</h2>
-        <p>@Html.ActionLink("Current Account", "DebitAccountForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        <p>@Html.ActionLink("Savings Account", "SavingsAccountForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+        <br /><br />
+        <div class="row">
+            <div class="col-md-6">
+                <p>@Html.ActionLink("Current Account", "DebitAccountForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div>
+            <div class="col-md-6">
+                <p>@Html.ActionLink("Savings Account", "SavingsAccountForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div>            
+        </div>        
     </div>    
 </div>
 <div class="col-md-6">
     <div class="bordered-box">
-        <p>@Html.ActionLink("Credit Card", "CreditCardForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        <p>@Html.ActionLink("Loan", "LoanForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        <p>@Html.ActionLink("Mortgage", "MortgageForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-    </div>
-    <h2>Accounts for borrowing needs</h2>    
+        <h2>Accounts for borrowing needs</h2>
+        <br /><br /><br /><br />
+        <div class="row">
+            <div class="col-md-4">
+                <p>@Html.ActionLink("Credit Card", "CreditCardForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div>
+            <div class="col-md-4">
+                <p>@Html.ActionLink("Loan", "LoanForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div>
+            <div class="col-md-4">
+                <p>@Html.ActionLink("Mortgage", "MortgageForm", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div> 
+        </div>               
+    </div>        
 </div>
+<br /><br />
 
