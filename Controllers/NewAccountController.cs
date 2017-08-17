@@ -107,6 +107,11 @@ namespace MScBank.Controllers
         [HttpPost]
         public ActionResult CreateSavingsAccount(SavingsAccount account) {
 
+            if (!ModelState.IsValid) {
+
+                return View("SavingsAccountForm");
+            }
+
             var uId = User.Identity.GetUserId();
 
             using (var _context = new ApplicationDbContext()) {
@@ -137,6 +142,11 @@ namespace MScBank.Controllers
 
         [HttpPost]
         public ActionResult CreateCreditCardAccount(CreditCard cc) {
+
+            if (!ModelState.IsValid) {
+
+                return View("CreaditCardForm");
+            }
 
             var uId = User.Identity.GetUserId();
 
@@ -170,6 +180,11 @@ namespace MScBank.Controllers
         [HttpPost]
         public ActionResult CreateLoanAccount(Loan loan) {
 
+            if (!ModelState.IsValid) {
+
+                return View("LoanForm");
+            }
+
             var uId = User.Identity.GetUserId();
 
             using (var _context = new ApplicationDbContext()) {
@@ -202,6 +217,11 @@ namespace MScBank.Controllers
 
         [HttpPost]
         public ActionResult CreateMortgageAccount(Mortgage mortgage) {
+
+            if (!ModelState.IsValid) {
+
+                return View("MortgageForm");
+            }
 
             var uId = User.Identity.GetUserId();
 

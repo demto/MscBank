@@ -10,9 +10,9 @@
 <br />
 <p>A loan is a one off big payment into your account which can be used for several different things incuding a bigger purchase such as a car</p>
 <br />
-<p>(but not a home) or paying off existing debt. It cannot be used for gambling, for unlowful purposes, for investments or for buying a property.</p>
+<p>(but not a home) or paying off existing debt. It cannot be used for gambling, for unlowful purposes, for investments or for buying a property. Current rate is 10%</p>
 <br />
-<p>A mortgage is a big loan secured against a home which is primarily used for a home purchase.</p>
+<p>A mortgage is a big loan secured against a home which is primarily used for a home purchase. Current rate is 2%</p>
 <br />
 <p>Please enter an opening balance: </p>
 <br />
@@ -22,6 +22,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.CreditCard.Limit)
         @Html.TextBoxFor(m => m.CreditCard.Limit, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CreditCard.Limit)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }

@@ -16,6 +16,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Account.Balance)
         @Html.TextBoxFor(m => m.Account.Balance, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Account.Balance)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }

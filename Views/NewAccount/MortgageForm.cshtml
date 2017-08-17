@@ -22,10 +22,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Mortgage.LendingAmount)
         @Html.TextBoxFor(m => m.Mortgage.LendingAmount, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Mortgage.LendingAmount)
+
+        <br /><br />
+
         @Html.LabelFor(m => m.Mortgage.Term)
         @Html.TextBoxFor(m => m.Mortgage.Term, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Mortgage.Term)
+
+        <br /><br />
+
         @Html.LabelFor(m => m.Mortgage.SecurityAddress)
         @Html.TextBoxFor(m => m.Mortgage.SecurityAddress, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Mortgage.SecurityAddress)
     </div>
     <button class="btn btn-primary" type="submit">Open</button>
 }
