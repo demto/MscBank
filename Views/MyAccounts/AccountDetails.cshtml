@@ -111,15 +111,19 @@
     </div>
     <div class="col-md-4">
         <div class="addMargin">
-            @if (canTransfer) {@Html.ActionLink("Transfer Funds", "Transfer", "MyAccoounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
-            @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            <div class="col-md-6 addMargin">
+            @if (canTransfer) {@Html.ActionLink("Transfer Funds", "Transfer", "MyAccoounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" }) <br />}
+            @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
             <!-- Trigger the modal with a button -->
             <button type="button" class="btn btn-primary btn-sm addMargin" data-toggle="@popupMessage" data-target="#@targetId">Close this account</button>
-            @if(Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin"})}
-            @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
-            @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
-            @if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })}
-
+                <br />
+            </div>
+            <div class="col-md-offset-2 col-md-4 addMargin">
+                @if (Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+                @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+                @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+                @if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })<br />}
+            </div>
         </div>        
     </div>
     <div class="col-md-4">
@@ -133,10 +137,29 @@
 <div class="row">
     <div class="center-block">
         @if (Model.Transactions.Any()) {
-            foreach (var t in Model.Transactions) {
-                <p>@t.Amount</p>
-                <p>@t.TransactionTimeStamp</p>
-            }
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Time of transaction</th>
+                        <th>Amount</th>
+                        <th>Account Balance after transaction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @foreach (var t in Model.Transactions) {
+
+                            string balanceColor = Model.MyAccount.Balance > 0 ? "text-success" : "text-danger";
+
+                            <tr>
+                                <td class="balanceColor">@t.Id</td>
+                                <td class="balanceColor">@t.TransactionTimeStamp</td>
+                                <td class="balanceColor">@t.Amount</td>
+                                <td class="balanceColor">@Model.MyAccount.Balance</td>
+                            </tr>                            
+                        }
+                </tbody>
+            </table>             
         } else {
             <p class="text-danger">No transactions on this account yet!</p>
         }

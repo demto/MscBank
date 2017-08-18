@@ -54,7 +54,7 @@ namespace MScBank.Controllers
         }
 
         public ActionResult CloseAccount(int accountId) {
-
+            
             using(var _context = new ApplicationDbContext()) {
 
                 var account2remove = _context.Accounts.Single(a => a.Id == accountId);
@@ -68,8 +68,11 @@ namespace MScBank.Controllers
                 }
                 _context.Accounts.Remove(account2remove);
                 _context.SaveChanges();
+                
             }
-            return RedirectToAction("Index", "MyAccounts");
+            return RedirectToAction("Index", "LoggedIn");
         }
+
+        //public ActionResult Transfer(int )
     }
 }

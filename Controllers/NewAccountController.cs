@@ -96,6 +96,13 @@ namespace MScBank.Controllers
                         OpenDate = DateTime.Now
                     };
 
+                    var transaction = new Transaction {
+                        Amount = account.Balance,
+                        TransactionTimeStamp = DateTime.Now,
+                        BankAccountBaseId = account.Id
+                    };
+
+                    _context.Transactions.Add(transaction);
                     _context.Accounts.Add(newCurrentAccount);
                     _context.SaveChanges();
                 }
