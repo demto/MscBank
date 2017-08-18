@@ -4,6 +4,18 @@
     ViewBag.Title = "AccountDetails";
 }
 @{ 
+    <!--Modal logic-->
+    string popupMessage = "";
+    string targetId = "";
+
+    if(Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
+        if(Model.MyAccount.Balance != 0) {
+            popupMessage = "modal";
+            targetId = "nonZeroBalanceClosure";
+        }
+    }
+
+    <!--BankCard info display logic-->
     string cardMessage = "";
     bool canHaveCard = false;
 
@@ -18,6 +30,7 @@
         cardMessage = "This account type cannot have a card";
     }
 
+    <!--Check if user has different types of account to display appropriate delete or pay buttons-->
     bool hasLoan = false;
     bool hasMortgage = false;
     bool hasCc = false;
@@ -32,12 +45,13 @@
         }
     };
 
+    <!--Can only transfer from current account or savings account-->
     bool canTransfer = false;
     if(Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
         canTransfer = true;
     };
 
-
+    <!--Loan term to display info-->
     string loanRemainingTermString = "";
     string mortgageRemainingTermString = "";
     int loanTerm = 0;
@@ -99,8 +113,9 @@
         <div class="addMargin">
             @if (canTransfer) {@Html.ActionLink("Transfer Funds", "Transfer", "MyAccoounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
             @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
-            @Html.ActionLink("Close Account", "CloseAccount", "MyAccounts", new { accountId = Model.MyAccount.Id}, new { @class = "btn btn-primary btn-sm addMargin" })
-            @if(Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin", onclick = "return confirm('Are you sure you wish to delete this article?');" })}
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-primary btn-sm addMargin" data-toggle="@popupMessage" data-target="#@targetId">Close this account</button>
+            @if(Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin"})}
             @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
             @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
             @if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })}
@@ -115,8 +130,8 @@
 </div>
 
 
-<div class="row center-block">
-    <div>
+<div class="row">
+    <div class="center-block">
         @if (Model.Transactions.Any()) {
             foreach (var t in Model.Transactions) {
                 <p>@t.Amount</p>
@@ -127,6 +142,37 @@
         }
     </div>
 </div>
+
+
+<!----------------------------MODAL-------------------------------------------->
+
+<!-- Modal -->
+<div class="modal fade" id="nonZeroBalanceClosure" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-danger">Invalid operation request</h4>
+            </div>
+            <div class="modal-body">
+                <p>You are trying to close an account with a balance!</p>
+                <p>Please transfer your funds to another account before closing or you can collect your cash next time you are in your local branch!</p>
+                <p>Please make sure you have an ID on you when collecting money in branch!</p>
+                <p>Please click cancel if you want to transfer money out first or click Delete account if you are happy to collect money in your local branch!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm pull-left" data-dismiss="modal">Cancel</button>
+                @Html.ActionLink("Close Account", "CloseAccount", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin pull-right" })
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
 
 
 

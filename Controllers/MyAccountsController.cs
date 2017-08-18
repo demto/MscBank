@@ -58,6 +58,14 @@ namespace MScBank.Controllers
             using(var _context = new ApplicationDbContext()) {
 
                 var account2remove = _context.Accounts.Single(a => a.Id == accountId);
+                
+                if(account2remove is CurrentAccount) {
+                    CurrentAccount account = account2remove as CurrentAccount;
+                    if (account.HasCard()) {
+                        BankCard card = _context.BankCards.Single(c => c.ParentAccount.Id == accountId);
+                        _context.BankCards.Remove(card);
+                    }
+                }
                 _context.Accounts.Remove(account2remove);
                 _context.SaveChanges();
             }
