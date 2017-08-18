@@ -255,6 +255,10 @@
     <Compile Include="Migrations\201708172227286_ChangedForeignKeyDependencyOnModels.Designer.cs">
       <DependentUpon>201708172227286_ChangedForeignKeyDependencyOnModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708181227405_AddedOpenDateToBankAccountBase.cs" />
+    <Compile Include="Migrations\201708181227405_AddedOpenDateToBankAccountBase.Designer.cs">
+      <DependentUpon>201708181227405_AddedOpenDateToBankAccountBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -283,6 +287,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Pics\AboutUsPic.jpg" />
+    <Content Include="Content\Pics\AccountDetailsPic.jpg" />
     <Content Include="Content\Pics\LoggedINIndexPic.jpg" />
     <Content Include="Content\Pics\LoginPagePic.jpg" />
     <Content Include="Content\Pics\MainThemePic.jpg" />
@@ -418,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708172227286_ChangedForeignKeyDependencyOnModels.resx">
       <DependentUpon>201708172227286_ChangedForeignKeyDependencyOnModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181227405_AddedOpenDateToBankAccountBase.resx">
+      <DependentUpon>201708181227405_AddedOpenDateToBankAccountBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

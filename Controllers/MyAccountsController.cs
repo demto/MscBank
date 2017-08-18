@@ -40,12 +40,14 @@ namespace MScBank.Controllers
                 var currentUserAccount = _context.Accounts.SingleOrDefault(a => a.Id == accountId);
                 var card = _context.BankCards.SingleOrDefault(c => c.ParentAccount.Id == accountId);
                 var transactions = _context.Transactions.Where(t => t.ParentAccount.Id == accountId).ToList();
+                var myAccounts = _context.Accounts.Where(a => a.ApplicationUserId == currentUserId).ToList();
 
                 var viewModel = new MyAccountsViewmodel {
                     User = currentUser,
                     MyAccount = currentUserAccount,
                     Card = card,
-                    Transactions = transactions
+                    Transactions = transactions,
+                    MyAccounts = myAccounts
                 };
                     return View(viewModel);
             }                

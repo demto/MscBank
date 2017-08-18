@@ -92,7 +92,8 @@ namespace MScBank.Controllers
                         AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
                         ApplicationUserId = uId,
                         Name = account.Name,
-                        Type = "Current Account"
+                        Type = "Current Account",
+                        OpenDate = DateTime.Now
                     };
 
                     _context.Accounts.Add(newCurrentAccount);
@@ -133,7 +134,8 @@ namespace MScBank.Controllers
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
                     ApplicationUserId = uId,
                     Name = account.Name,
-                    Type = "Savings Account"
+                    Type = "Savings Account",
+                    OpenDate = DateTime.Now
                 };
 
                 _context.Accounts.Add((SavingsAccount) newSavingsAccount);
@@ -171,7 +173,8 @@ namespace MScBank.Controllers
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
                     ApplicationUserId = uId,
                     Name = cc.Name,
-                    Type = "Credit Card Account"
+                    Type = "Credit Card Account",
+                    OpenDate = DateTime.Now
                 };
 
                 _context.Accounts.Add(newCc);
@@ -213,7 +216,8 @@ namespace MScBank.Controllers
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
                     ApplicationUserId = uId,
                     Name = loan.Name,
-                    Type = "Loan Account"
+                    Type = "Loan Account",
+                    OpenDate = DateTime.Now
                 };
 
                 _context.Accounts.Add(newLoan);
@@ -254,7 +258,8 @@ namespace MScBank.Controllers
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
                     ApplicationUserId = uId,
                     Name = mortgage.Name,
-                    Type = "Mortgage Account"
+                    Type = "Mortgage Account",
+                    OpenDate = DateTime.Now
                 };
 
                 _context.Accounts.Add(newMortgage);

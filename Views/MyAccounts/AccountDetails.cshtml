@@ -1,24 +1,83 @@
 ﻿@model MScBank.ViewModels.MyAccountsViewmodel
+@using MScBank.Models
 @{
     ViewBag.Title = "AccountDetails";
 }
+@{ 
+    string cardMessage = "";
+
+    if(Model.MyAccount is CurrentAccount) {
+        CurrentAccount myCurrentAccount = (CurrentAccount)Model.MyAccount;
+        cardMessage = myCurrentAccount.HasCard().ToString();
+    } else {
+        cardMessage = "This account type cannot have a card";
+    }
+
+    bool hasLoan = false;
+    bool hasMortgage = false;
+    bool hasCc = false;
+
+    foreach (var a in Model.MyAccounts) {
+        if (a is Loan) {
+            hasLoan = true;
+        }else if (a is CreditCard){
+            hasCc = true;
+        }else if(a is Mortgage) {
+            hasMortgage = true;
+        }
+    };
+
+    bool canTransfer = false;
+    if(Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
+        canTransfer = true;
+    };
+
+}
 
 <h2>My AccountDetails</h2>
-<p>@Model.User.FullName</p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="addMargin bordered-box">
+            <p><span style="font-weight:bold">Owner :</span> @Model.User.FullName</p>
+            <p><span style="font-weight:bold">Name of Account : </span>@Model.MyAccount.Name</p>
+            <p><span style="font-weight:bold">Type of account : </span> @Model.MyAccount.Type</p>
+            <p><span style="font-weight:bold"> Existing Card for the account : </span>@cardMessage</p>          
+            <p><span style="font-weight:bold">Sort code : </span>@Model.MyAccount.SortCode</p>
+            <p><span style="font-weight:bold">Account Number : </span>@Model.MyAccount.AccountNumber</p>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="addMargin">
+            @if (canTransfer) {@Html.ActionLink("Transfer Funds", "Transfer", "MyAccoounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            @Html.ActionLink("Close Account", "CloseAccount", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })
+            @if(Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="addMargin">
+            <img src="~/Content/Pics/AccountDetailsPic.jpg" class="img-responsive img-circle"/>
+        </div>
+    </div>
+</div>
 
 
-@Model.MyAccount.AccountNumber
-@Model.MyAccount.Name
-@Model.MyAccount.SortCode
+<div class="row center-block">
+    <div>
+        @if (Model.Transactions.Any()) {
+            foreach (var t in Model.Transactions) {
+                <p>@t.Amount</p>
+                <p>@t.TransactionTimeStamp</p>
+            }
+        } else {
+            <p class="text-danger">No transactions on this account yet!</p>
+        }
+    </div>
+</div>
 
-@if (Model.Transactions.Any()) {
-    foreach (var t in Model.Transactions) {
-        <p>@t.Amount</p>
-        <p>@t.TransactionTimeStamp</p>
-    }
-}else{
-    <p class="text-danger">No transactions on this account yet!</p>
-}
+
 
 
 
