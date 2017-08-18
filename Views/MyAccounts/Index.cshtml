@@ -24,11 +24,14 @@
                 </thead>
                 <tbody>
                     @foreach (var account in Model.MyAccounts) {
+
+                        string balanceColor = account.Balance > 0 ? "text-success" : "text-danger";
+                        
                         <tr>
                             <td class="padTablerow">@account.Name</td>
                             <td class="padTablerow">@account.Type</td>
-                            <td class="padTablerow">@account.Balance</td>
-                            <td class="padTablerow">@Html.ActionLink("Details", "AccountDetails", "MyAccounts", new { accountId = account.Id }, null)</td>
+                            <td class="padTablerow @balanceColor">@account.Balance</td>
+                            <td class="padTablerow tex">@Html.ActionLink("Details", "AccountDetails", "MyAccounts", new { accountId = account.Id }, new { @class = "btn btn-primary btn-sm addMargin" })</td>
                         </tr>
                     }
                 </tbody>

@@ -52,5 +52,16 @@ namespace MScBank.Controllers
                     return View(viewModel);
             }                
         }
+
+        public ActionResult CloseAccount(int accountId) {
+
+            using(var _context = new ApplicationDbContext()) {
+
+                var account2remove = _context.Accounts.Single(a => a.Id == accountId);
+                _context.Accounts.Remove(account2remove);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index", "MyAccounts");
+        }
     }
 }

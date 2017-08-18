@@ -5,10 +5,15 @@
 }
 @{ 
     string cardMessage = "";
+    bool canHaveCard = false;
 
     if(Model.MyAccount is CurrentAccount) {
         CurrentAccount myCurrentAccount = (CurrentAccount)Model.MyAccount;
         cardMessage = myCurrentAccount.HasCard().ToString();
+
+        if (!myCurrentAccount.HasCard()) {
+            canHaveCard = true;
+        }
     } else {
         cardMessage = "This account type cannot have a card";
     }
@@ -32,6 +37,47 @@
         canTransfer = true;
     };
 
+
+    string loanRemainingTermString = "";
+    string mortgageRemainingTermString = "";
+    int loanTerm = 0;
+    int mortgageTerm = 0;
+
+    if (Model.MyAccount is Loan){
+
+        Loan loan = (Loan) Model.MyAccount;
+        loanTerm = loan.Term;
+        int elapsedTerm = DateTime.Now.Year - Model.MyAccount.OpenDate.Year;
+
+        if (DateTime.Now.Month < Model.MyAccount.OpenDate.Month ||
+            (DateTime.Now.Month == Model.MyAccount.OpenDate.Month && DateTime.Now.Day < Model.MyAccount.OpenDate.Day)) {
+            elapsedTerm--;
+        }
+
+        int remainingTerm = loan.Term - elapsedTerm;
+
+        loanRemainingTermString = remainingTerm.ToString();
+
+    }
+
+    if (Model.MyAccount is Mortgage) {
+
+        Mortgage loan = (Mortgage)Model.MyAccount;
+        mortgageTerm = loan.Term;
+        int elapsedTerm = DateTime.Now.Year - Model.MyAccount.OpenDate.Year;
+
+        if (DateTime.Now.Month < Model.MyAccount.OpenDate.Month ||
+            (DateTime.Now.Month == Model.MyAccount.OpenDate.Month && DateTime.Now.Day < Model.MyAccount.OpenDate.Day)) {
+            elapsedTerm--;
+        }
+
+        int remainingTerm = loan.Term - elapsedTerm;
+
+        mortgageRemainingTermString = remainingTerm.ToString();
+
+    }
+
+
 }
 
 <h2>My AccountDetails</h2>
@@ -44,16 +90,21 @@
             <p><span style="font-weight:bold"> Existing Card for the account : </span>@cardMessage</p>          
             <p><span style="font-weight:bold">Sort code : </span>@Model.MyAccount.SortCode</p>
             <p><span style="font-weight:bold">Account Number : </span>@Model.MyAccount.AccountNumber</p>
+            <p><span style="font-weight:bold">Opened : </span>@Model.MyAccount.OpenDate</p>
+            @if (Model.MyAccount is Loan) {<p><span style="font-weight:bold">Original term : </span>@loanTerm</p>
+                                           <p><span style="font-weight:bold">Remaining term : </span>@loanRemainingTermString</p>}
         </div>        
     </div>
     <div class="col-md-4">
         <div class="addMargin">
             @if (canTransfer) {@Html.ActionLink("Transfer Funds", "Transfer", "MyAccoounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
             @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
-            @Html.ActionLink("Close Account", "CloseAccount", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })
-            @if(Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            @Html.ActionLink("Close Account", "CloseAccount", "MyAccounts", new { accountId = Model.MyAccount.Id}, new { @class = "btn btn-primary btn-sm addMargin" })
+            @if(Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin", onclick = "return confirm('Are you sure you wish to delete this article?');" })}
             @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
             @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })}
+            @if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })}
+
         </div>        
     </div>
     <div class="col-md-4">
