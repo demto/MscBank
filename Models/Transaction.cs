@@ -11,6 +11,7 @@ namespace MScBank.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public decimal Amount { get; set; }
 
         public DateTime? TransactionTimeStamp { get; set; }

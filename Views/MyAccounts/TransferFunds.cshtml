@@ -1,0 +1,40 @@
+﻿@model MScBank.ViewModels.TransferFundsViewModel
+    @using Microsoft.AspNet.Identity;
+    @using MScBank.Models;
+@using System.Web.Mvc;
+@{
+    ViewBag.Title = "TransferFunds";
+}
+
+<h2>Transfer Funds</h2>
+
+@using (Html.BeginForm("Transfer", "MyAccounts")) {
+
+
+    <p>Sending money from account : </p>
+    <p>Name of account : @Model.FromAccount.Name</p>
+    <p>Sort code : @Model.FromAccount.SortCode</p>
+    <p>Account Number : @Model.FromAccount.AccountNumber</p>
+    <p>Balance : @Model.FromAccount.Balance</p>
+    <br />
+    <p>To : </p>
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(a => a.ToAccountAcNum)
+        @Html.TextBoxFor(a => a.ToAccountAcNum, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.ToAccountAcNum)
+        <br />
+        @Html.LabelFor(a => a.ToAccountSC)
+        @Html.TextBoxFor(a => a.ToAccountSC, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.ToAccountSC)
+        <br />
+        @Html.LabelFor(a => a.Amount)
+        @Html.TextBoxFor(a => a.Amount, new { @class = "form-control" })
+        @Html.ValidationMessageFor(a => a.Amount)
+
+
+        @Html.HiddenFor(m => m.FromAccountId)
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+}
+

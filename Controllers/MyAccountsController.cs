@@ -3,6 +3,7 @@ using MScBank.Models;
 using MScBank.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace MScBank.Controllers
 
             return View(viewModel);
         }
-
+        
         public ActionResult AccountDetails(int accountId) {
 
             using (var _context = new ApplicationDbContext()) {
@@ -53,6 +54,7 @@ namespace MScBank.Controllers
             }                
         }
 
+        [HttpPost]
         public ActionResult CloseAccount(int accountId) {
             
             using(var _context = new ApplicationDbContext()) {
@@ -72,7 +74,51 @@ namespace MScBank.Controllers
             }
             return RedirectToAction("Index", "LoggedIn");
         }
+        
+        public ActionResult TransferFunds(int accountId) {
 
-        //public ActionResult Transfer(int )
+            using(var _context = new ApplicationDbContext()) {
+
+                var fromAccount = _context.Accounts.Single(a => a.Id == accountId);
+                
+                    //var transfer = new Transfer {
+                    //     BankAccountBaseId = accountId
+                    //};
+
+                var viewModel = new TransferFundsViewModel {
+                    FromAccount = fromAccount,
+                    FromAccountId = accountId
+                };
+
+                    return View(viewModel);
+                
+            }            
+        }
+     
+        [HttpPost]
+        public ActionResult Transfer(TransferFundsViewModel viewModel) {
+
+            using (var _context = new ApplicationDbContext()) {
+
+                if (!ModelState.IsValid) {
+
+                    var backViewModel = new TransferFundsViewModel {
+
+                        FromAccount = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId),
+                         
+                    };
+
+                    return View("TransferFunds", backViewModel);
+                }
+
+            ApplicationUser user;
+            
+
+                string uId = User.Identity.GetUserId();
+                user = _context.Users.Single(c => c.Id == uId);
+            }
+            return RedirectToAction("Index", "LoggedIn");
+            //return View("TransferFunds", new { accountId = transfer.BankAccountBaseId });//, new { accountId = transfer.BankAccountBaseId });
+        }
     }
 }

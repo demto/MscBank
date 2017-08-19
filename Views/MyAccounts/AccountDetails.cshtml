@@ -112,16 +112,16 @@
     <div class="col-md-4">
         <div class="addMargin">
             <div class="col-md-6 addMargin">
-            @if (canTransfer) {@Html.ActionLink("Transfer Funds", "Transfer", "MyAccoounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" }) <br />}
-            @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+            @if (canTransfer) {@Html.ActionLink("Transfer Funds", "TransferFunds", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" }) <br />}
+            @if (Model.MyAccount is CreditCard) {@Html.ActionLink("Purchase something", "CcPurchase", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
             <!-- Trigger the modal with a button -->
             <button type="button" class="btn btn-primary btn-sm addMargin" data-toggle="@popupMessage" data-target="#@targetId">Close this account</button>
                 <br />
             </div>
             <div class="col-md-offset-2 col-md-4 addMargin">
-                @if (Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
-                @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
-                @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { account = Model.MyAccount }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+                @if (Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCredit", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+                @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayCredit", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
+                @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayCredit", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
                 @if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })<br />}
             </div>
         </div>        

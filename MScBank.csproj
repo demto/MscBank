@@ -259,6 +259,26 @@
     <Compile Include="Migrations\201708181227405_AddedOpenDateToBankAccountBase.Designer.cs">
       <DependentUpon>201708181227405_AddedOpenDateToBankAccountBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708181931008_AddedTransferClass.cs" />
+    <Compile Include="Migrations\201708181931008_AddedTransferClass.Designer.cs">
+      <DependentUpon>201708181931008_AddedTransferClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708182157192_ChangedTransferClass.cs" />
+    <Compile Include="Migrations\201708182157192_ChangedTransferClass.Designer.cs">
+      <DependentUpon>201708182157192_ChangedTransferClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708182200517_ChangedTransferClassAgain.cs" />
+    <Compile Include="Migrations\201708182200517_ChangedTransferClassAgain.Designer.cs">
+      <DependentUpon>201708182200517_ChangedTransferClassAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708182206507_DeletedTransfersClass.cs" />
+    <Compile Include="Migrations\201708182206507_DeletedTransfersClass.Designer.cs">
+      <DependentUpon>201708182206507_DeletedTransfersClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708190647238_AddedTransferClass1.cs" />
+    <Compile Include="Migrations\201708190647238_AddedTransferClass1.Designer.cs">
+      <DependentUpon>201708190647238_AddedTransferClass1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -275,12 +295,14 @@
     <Compile Include="Models\Mortgage.cs" />
     <Compile Include="Models\SavingsAccount.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\Transfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BankAccountUtils\SavingsRate.cs" />
     <Compile Include="Utils\UserAccountUtils\LoadUser.cs" />
     <Compile Include="ViewModels\MyAccountsViewmodel.cs" />
     <Compile Include="ViewModels\NewAccountViewModel.cs" />
+    <Compile Include="ViewModels\TransferFundsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-flatly.css" />
@@ -354,6 +376,7 @@
     <Content Include="Views\NewAccount\MortgageForm.cshtml" />
     <Content Include="Views\MyAccounts\Index.cshtml" />
     <Content Include="Views\MyAccounts\AccountDetails.cshtml" />
+    <Content Include="Views\MyAccounts\TransferFunds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -426,6 +449,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708181227405_AddedOpenDateToBankAccountBase.resx">
       <DependentUpon>201708181227405_AddedOpenDateToBankAccountBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181931008_AddedTransferClass.resx">
+      <DependentUpon>201708181931008_AddedTransferClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708182157192_ChangedTransferClass.resx">
+      <DependentUpon>201708182157192_ChangedTransferClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708182200517_ChangedTransferClassAgain.resx">
+      <DependentUpon>201708182200517_ChangedTransferClassAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708182206507_DeletedTransfersClass.resx">
+      <DependentUpon>201708182206507_DeletedTransfersClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708190647238_AddedTransferClass1.resx">
+      <DependentUpon>201708190647238_AddedTransferClass1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
