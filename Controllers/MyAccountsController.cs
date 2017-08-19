@@ -154,5 +154,31 @@ namespace MScBank.Controllers
             }
             return RedirectToAction("Index", "LoggedIn");            
         }
+        
+
+        public ActionResult PayCreditCard(int accountId) {
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var uId = User.Identity.GetUserId();
+
+
+                var fromAccount = _context.Accounts.Single(a => a.Id == accountId);
+                var toACcount = _context.Accounts.Where(a => a is CreditCard).Single(a => a.ApplicationUserId == uId);
+
+                //var transfer = new Transfer {
+                //     BankAccountBaseId = accountId
+                //};
+
+                var viewModel = new TransferFundsViewModel {
+                    FromAccount = fromAccount,
+                    FromAccountId = accountId,
+                    ToAccountAcNum = toACcount.AccountNumber,
+                    ToAccountSC = toACcount.SortCode
+                };
+
+                return View("PayCredit", viewModel);
+            }
+        }
     }
 }

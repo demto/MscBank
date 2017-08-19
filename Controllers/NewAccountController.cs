@@ -161,16 +161,26 @@ namespace MScBank.Controllers
                 return View("CreaditCardForm");
             }
 
-            var uId = User.Identity.GetUserId();
-
             using (var _context = new ApplicationDbContext()) {
+
+                var uId = User.Identity.GetUserId();
+                var user = _context.Users.Single(u => u.Id == uId);
+
+                //if already has a credit card
+                if(_context.Accounts.Where(a => a.ApplicationUserId == uId)
+                                    .Where(a => a is CreditCard).Count() > 0) {
+                    return View("CreaditCardForm");
+                }
+            
 
                 var accountId = 0;
 
+                //generating accoun number
                 var existingAccounts = _context.Accounts.Where(a => a.Id == accountId);
                 var highestAccountId = _context.Accounts.Max(a => a.Id);
                 accountId = highestAccountId++;
 
+                //creating new credit card
                 var newCc = new CreditCard {
 
                     Limit = cc.Limit,
@@ -200,10 +210,18 @@ namespace MScBank.Controllers
 
                 return View("LoanForm");
             }
-
-            var uId = User.Identity.GetUserId();
+             
 
             using (var _context = new ApplicationDbContext()) {
+
+                var uId = User.Identity.GetUserId();
+                var user = _context.Users.Single(u => u.Id == uId);
+
+                //if already has a credit card
+                if (user.MyAccounts.Where(a => a is Loan).Count() > 0) {
+                    return View("LoanForm");
+                }
+
 
                 var accountId = 0;
 
@@ -241,10 +259,17 @@ namespace MScBank.Controllers
 
                 return View("MortgageForm");
             }
-
-            var uId = User.Identity.GetUserId();
-
+            
             using (var _context = new ApplicationDbContext()) {
+
+
+                var uId = User.Identity.GetUserId();
+                var user = _context.Users.Single(u => u.Id == uId);
+
+                //if already has a credit card
+                if (user.MyAccounts.Where(a => a is Mortgage).Count() > 0) {
+                    return View("MortgageForm");
+                }
 
                 var accountId = 0;
 

@@ -377,6 +377,7 @@
     <Content Include="Views\MyAccounts\Index.cshtml" />
     <Content Include="Views\MyAccounts\AccountDetails.cshtml" />
     <Content Include="Views\MyAccounts\TransferFunds.cshtml" />
+    <Content Include="Views\MyAccounts\PayCredit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
