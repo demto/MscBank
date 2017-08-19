@@ -63,17 +63,18 @@ namespace MScBank.Controllers
 
                 var account2remove = _context.Accounts.Single(a => a.Id == accountId);
 
+                _context.Accounts.Remove(account2remove);
+
                 if (account2remove is CurrentAccount) {
                     CurrentAccount account = account2remove as CurrentAccount;
                     if (account.HasCard()) {
                         BankCard card = _context.BankCards.Single(c => c.ParentAccount.Id == accountId);
                         _context.BankCards.Remove(card);
+                       
                     }
                 }
 
-                _context.Accounts.Remove(account2remove);
                 _context.SaveChanges();
-                
             }
             return RedirectToAction("Index", "LoggedIn");
         }
@@ -288,6 +289,59 @@ namespace MScBank.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Index", "LoggedIn");
+        }
+
+        public ActionResult OrderCard(int accountId) {
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var account = _context.Accounts.Single(a => a.Id == accountId);
+
+                var viewModel = new OrderCardFormViewModel {
+                    Account = account,
+                    AccountId = accountId
+                };
+
+                return View("OrderCardForm", viewModel);
+            }
+        }
+
+        public ActionResult processCardOrder(OrderCardFormViewModel model) {
+
+            using(var _context = new ApplicationDbContext()) {
+
+                string uId = User.Identity.GetUserId();
+                var user = _context.Users.Single(u => u.Id == uId);
+                var account = (CurrentAccount) _context.Accounts.Single(a => a.Id == model.AccountId);
+
+
+                var highestCardId = 0;
+                var newCardId = 0;
+
+                if(_context.BankCards.Any()){
+
+                    if(_context.BankCards.Max(c => c.Id) > 0) {
+
+                        highestCardId = _context.BankCards.Max(c => c.Id);
+                        newCardId = highestCardId++;
+                    }
+                }
+
+                BankCard newCard = new BankCard {
+                    BankAccountBaseId = model.AccountId,
+                    ExpiryDate = DateTime.Today.AddYears(2),
+                    Status = BankCard.CardStatus.Open,
+                    NameOnCard = user.FullName,
+                    PinNumber = account.Id,
+                    CardNumber = newCardId.ToString().PadLeft(16, '0')
+                };
+
+                _context.BankCards.Add(newCard);
+                _context.SaveChanges();
+
+                    return RedirectToAction("Index", "LoggedIn");
+            }
+            
         }
     }
 }

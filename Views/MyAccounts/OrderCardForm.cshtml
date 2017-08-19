@@ -1,0 +1,25 @@
+﻿@model MScBank.ViewModels.OrderCardFormViewModel
+ 
+   @{
+       ViewBag.Title = "OrderCardForm";
+   }
+
+
+<h2>Order Card Form</h2>
+
+<br />
+@using (Html.BeginForm("ProcessCardOrder", "MyAccounts")) {
+    <div class="form-group">
+        @Html.LabelFor(m => m.Card.PinNumber)
+        @Html.TextBoxFor(m => m.Card.PinNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Card.PinNumber)
+
+        @Html.HiddenFor(m => m.AccountId)
+    </div>
+    
+
+    <button type="submit" class="btn btn-group-sm btn-primary">Submit</button>
+
+}
+
+

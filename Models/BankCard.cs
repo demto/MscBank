@@ -15,11 +15,14 @@ namespace MScBank.Models
         public string CardNumber { get; set; }
 
         [Required]
+        [RegularExpression("\\d{4}", ErrorMessage = "Account number must be numeric and 4 digits!")]
         public int PinNumber { get; set; }
 
         public DateTime ExpiryDate { get; set; }
 
         public CardStatus Status { get; set; }
+
+        public string NameOnCard { get; set; }
 
         public virtual BankAccountBase ParentAccount { get; set; }
         
@@ -31,9 +34,6 @@ namespace MScBank.Models
             Open,
             Blocked
         }
-
-        public BankCard() {
-
-        }
+        
     }
 }

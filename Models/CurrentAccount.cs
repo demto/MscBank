@@ -9,28 +9,22 @@ namespace MScBank.Models
     {
         public BankCard BankCard { get; set; }
 
-        public bool HasCard() => BankCard == null ? false : true;
+        public void CancelCard() {
 
-
-        public void CancelCard()
-        {
-            if(BankCard != null)
-            {
-                BankCard = null;
+            using(var _context = new ApplicationDbContext()) {
+                //_context.BankCards.Remove(this.BankCard);
             }
         }
 
-        public void OrderCard()
-        {
-            if(BankCard == null)
-            {
-                BankCard = new BankCard();
-            }
-            else
-            {
-                throw new ArgumentException("Only one card is allowed for an account!");
-            }
+        public bool HasCard() {
+            //using(var _context = new ApplicationDbContext()) {
+            //    return _context.BankCards.Single( c => c == null ? false : true);
+            //}
+            return true;
         }
-        
+
+        public void OrderCard() {
+            throw new NotImplementedException();
+        }
     }
 }

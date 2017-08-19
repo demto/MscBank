@@ -14,28 +14,37 @@
     //popupMessage = "modal";
     //targetId = "";
 
+    CurrentAccount ca = null;
     CreditCard cc = null;
 
-    if(Model.MyAccount is CreditCard) {
+    if (Model.MyAccount is CreditCard) {
         cc = Model.MyAccount as CreditCard;
+    }
+    if (Model.MyAccount is CurrentAccount) {
+        ca = Model.MyAccount as CurrentAccount;
     }
     // }
     // }
 
     <!--BankCard info display logic-->
+
     string cardMessage = "";
     bool canHaveCard = false;
 
-    if(Model.MyAccount is CurrentAccount) {
-        CurrentAccount myCurrentAccount = (CurrentAccount)Model.MyAccount;
-        cardMessage = myCurrentAccount.HasCard().ToString();
+    using (var _context = new ApplicationDbContext()) {
+        if (Model.MyAccount is CurrentAccount) {
+            var card = _context.BankCards.Single(c => c.BankAccountBaseId == Model.MyAccount.Id);
+            if (card == null) {
+                canHaveCard = true;
+            }
 
-        if (!myCurrentAccount.HasCard()) {
-            canHaveCard = true;
+            cardMessage = canHaveCard.ToString();
+
+        } else {
+            cardMessage = "This account type cannot have a card";
         }
-    } else {
-        cardMessage = "This account type cannot have a card";
     }
+    
 
     <!--Check if user has different types of account to display appropriate delete or pay buttons-->
     bool hasLoan = false;
@@ -45,16 +54,16 @@
     foreach (var a in Model.MyAccounts) {
         if (a.Type == "Loan Account") {
             hasLoan = true;
-        }else if (a is CreditCard){
+        } else if (a is CreditCard) {
             hasCc = true;
-        }else if(a is Mortgage) {
+        } else if (a is Mortgage) {
             hasMortgage = true;
         }
     };
 
     <!--Can only transfer from current account or savings account-->
     bool canTransfer = false;
-    if(Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
+    if (Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
         canTransfer = true;
     };
 
@@ -64,9 +73,9 @@
     int loanTerm = 0;
     int mortgageTerm = 0;
 
-    if (Model.MyAccount is Loan){
+    if (Model.MyAccount is Loan) {
 
-        Loan loan = (Loan) Model.MyAccount;
+        Loan loan = (Loan)Model.MyAccount;
         loanTerm = loan.Term;
         int elapsedTerm = DateTime.Now.Year - Model.MyAccount.OpenDate.Year;
 
@@ -130,7 +139,8 @@
                 @if (Model.MyAccount is CurrentAccount && hasCc) { @Html.ActionLink("Pay Credit Card", "PayCreditCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
                 @if (Model.MyAccount is CurrentAccount && hasLoan) { @Html.ActionLink("Pay Loan", "PayLoan", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
                 @if (Model.MyAccount is CurrentAccount && hasMortgage) { @Html.ActionLink("Pay Mortgage", "PayMortgage", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin" })<br />}
-                @if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })<br />}
+                @if (canHaveCard) {<button type="button" class="btn btn-primary btn-sm addMargin" data-toggle="modal" data-target="#hasCard">Order Card</button>}
+                @*@if (Model.MyAccount is CurrentAccount || canHaveCard) { @Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addmargin" })<br />}*@
             </div>
         </div>        
     </div>
@@ -155,7 +165,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                        @foreach (var t in Model.Transactions) {
+                        @foreach (var t in Model.Transactions.OrderBy(t => t.TransactionTimeStamp)) {
 
                             string balanceColor = Model.MyAccount.Balance > 0 ? "text-success" : "text-danger";
 
@@ -175,7 +185,7 @@
 </div>
 
 
-<!----------------------------MODAL-------------------------------------------->
+<!----------------------------MODAL for non-zero balance closure-------------------------------------------->
 
 <!-- Modal -->
 <div class="modal fade" id="nonZeroBalanceClosure" role="dialog">
@@ -191,11 +201,40 @@
                 <p>You are trying to close an account!</p>
                 <p>Please transfer any potential funds to another account before closing or you can collect your cash next time you are in your local branch!</p>
                 <p>Please make sure you have an ID on you when collecting money in branch!</p>
-                <p>Please click cancel if you want to transfer money out first or click Delete account if you are happy to collect money in your local branch!</p>
+                <p>Please click cancel if you want to transfer money out first or click Close account if you are happy to collect money in your local branch!</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-sm pull-left" data-dismiss="modal">Cancel</button>
                 @Html.ActionLink("Close Account", "CloseAccount", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin pull-right" })
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!----------------------------MODAL for hasCard() New Card-------------------------------------------->
+<!-- Modal -->
+<div class="modal fade" id="hasCard" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                @if (ca != null) {
+                    if (!ca.HasCard()) {<h4 class="modal-title text-success">Ordering Card for account</h4>}
+                }
+                @if (ca != null){ if(ca.HasCard()){ <h4 class="modal-title text-danger">Invalid card order</h4> } }
+            </div>
+            <div class="modal-body">
+                <p>You are processing a card order!</p>
+                <p>Please be aware that only one card can be given to any one account!</p>
+                <p>You will be able to use this card with an ATM.</p>
+                <p>If you already have a card for your account please click close. Otherwise if you wish to proceed with a card order please click Order Card.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm pull-left" data-dismiss="modal">Cancel</button>
+                @if (ca != null) { if (!ca.HasCard()) {@Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin pull-right" })}}
             </div>
         </div>
 

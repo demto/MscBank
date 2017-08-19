@@ -226,8 +226,13 @@ namespace MScBank.Controllers
                 var uId = User.Identity.GetUserId();
                 var user = _context.Users.Single(u => u.Id == uId);
 
+                //var accounts = _context.Accounts.Where(a => a.ApplicationUserId == uId);
+                //user.MyAccounts.AddRange(accounts);
+
                 //if already has a credit card
-                if (user.MyAccounts.Where(a => a is Loan).Count() > 0) {
+                if (_context.Accounts.Where(a => a.ApplicationUserId == uId)
+                                     .Where(a => a.Type == "Loan Account")
+                                     .Count() > 0) {
                     return View("LoanForm");
                 }
 
@@ -254,12 +259,22 @@ namespace MScBank.Controllers
                     OpenDate = DateTime.Now
                 };
 
+
                 //adding borrowed balance to CA
                 var ca = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount);
 
                 ca.Balance += loan.LendingAmount;
 
+                //creating and adding transaction
+                var transaction = new Transfer {
+                    Amount = loan.LendingAmount,
+                    BankAccountBaseId = loan.Id,
+                    ToAccountId = ca.Id,
+                    TransactionTimeStamp = DateTime.Now,
+                    CurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance
+                };
 
+                _context.Transactions.Add(transaction);
                 _context.Accounts.Add(newLoan);
                 _context.SaveChanges();
             }
