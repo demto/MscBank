@@ -5,15 +5,22 @@
 }
 @{ 
     <!--Modal logic-->
-    string popupMessage = "";
-    string targetId = "";
+    string popupMessage = "modal";
+    string targetId = "nonZeroBalanceClosure";
 
-    if(Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
-        if(Model.MyAccount.Balance != 0) {
-            popupMessage = "modal";
-            targetId = "nonZeroBalanceClosure";
-        }
+    //if(Model.MyAccount is CurrentAccount || Model.MyAccount is SavingsAccount) {
+    // if(Model.MyAccount.Balance != 0) {
+
+    //popupMessage = "modal";
+    //targetId = "";
+
+    CreditCard cc = null;
+
+    if(Model.MyAccount is CreditCard) {
+        cc = Model.MyAccount as CreditCard;
     }
+    // }
+    // }
 
     <!--BankCard info display logic-->
     string cardMessage = "";
@@ -36,7 +43,7 @@
     bool hasCc = false;
 
     foreach (var a in Model.MyAccounts) {
-        if (a is Loan) {
+        if (a.Type == "Loan Account") {
             hasLoan = true;
         }else if (a is CreditCard){
             hasCc = true;
@@ -101,6 +108,7 @@
             <p><span style="font-weight:bold">Owner :</span> @Model.User.FullName</p>
             <p><span style="font-weight:bold">Name of Account : </span>@Model.MyAccount.Name</p>
             <p><span style="font-weight:bold">Type of account : </span> @Model.MyAccount.Type</p>
+            @if (Model.MyAccount is CreditCard) { <p><span style="font-weight:bold">Limit : </span> @cc.Limit</p>}
             <p><span style="font-weight:bold"> Existing Card for the account : </span>@cardMessage</p>          
             <p><span style="font-weight:bold">Sort code : </span>@Model.MyAccount.SortCode</p>
             <p><span style="font-weight:bold">Account Number : </span>@Model.MyAccount.AccountNumber</p>
@@ -155,7 +163,7 @@
                                 <td class="balanceColor">@t.Id</td>
                                 <td class="balanceColor">@t.TransactionTimeStamp</td>
                                 <td class="balanceColor">@t.Amount</td>
-                                <td class="balanceColor">@Model.MyAccount.Balance</td>
+                                <td class="balanceColor">@t.CurrentBalance</td>
                             </tr>                            
                         }
                 </tbody>
@@ -180,8 +188,8 @@
                 <h4 class="modal-title text-danger">Invalid operation request</h4>
             </div>
             <div class="modal-body">
-                <p>You are trying to close an account with a balance!</p>
-                <p>Please transfer your funds to another account before closing or you can collect your cash next time you are in your local branch!</p>
+                <p>You are trying to close an account!</p>
+                <p>Please transfer any potential funds to another account before closing or you can collect your cash next time you are in your local branch!</p>
                 <p>Please make sure you have an ID on you when collecting money in branch!</p>
                 <p>Please click cancel if you want to transfer money out first or click Delete account if you are happy to collect money in your local branch!</p>
             </div>

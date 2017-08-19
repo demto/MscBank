@@ -99,7 +99,8 @@ namespace MScBank.Controllers
                     var transaction = new Transaction {
                         Amount = account.Balance,
                         TransactionTimeStamp = DateTime.Now,
-                        BankAccountBaseId = account.Id
+                        BankAccountBaseId = account.Id,
+                        CurrentBalance = account.Balance
                     };
 
                     _context.Transactions.Add(transaction);
@@ -145,6 +146,14 @@ namespace MScBank.Controllers
                     OpenDate = DateTime.Now
                 };
 
+                var transaction = new Transaction {
+                    Amount = account.Balance,
+                    TransactionTimeStamp = DateTime.Now,
+                    BankAccountBaseId = account.Id,
+                    CurrentBalance = account.Balance
+                };
+
+                _context.Transactions.Add(transaction);
                 _context.Accounts.Add((SavingsAccount) newSavingsAccount);
                 _context.SaveChanges();
 
@@ -154,7 +163,7 @@ namespace MScBank.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateCreditCardAccount(CreditCard cc) {
+        public ActionResult CreateCreditCardAccount(NewAccountViewModel model) {
 
             if (!ModelState.IsValid) {
 
@@ -169,7 +178,7 @@ namespace MScBank.Controllers
                 //if already has a credit card
                 if(_context.Accounts.Where(a => a.ApplicationUserId == uId)
                                     .Where(a => a is CreditCard).Count() > 0) {
-                    return View("CreaditCardForm");
+                    return View("CreditCardForm");
                 }
             
 
@@ -183,13 +192,13 @@ namespace MScBank.Controllers
                 //creating new credit card
                 var newCc = new CreditCard {
 
-                    Limit = cc.Limit,
+                    Limit = model.CreditCard.Limit,
                     InterestRate = 20,
                     SortCode = "12-34-56",
                     Transactions = new List<Transaction>(),
                     AccountNumber = highestAccountId.ToString().PadLeft(8, '0'),
                     ApplicationUserId = uId,
-                    Name = cc.Name,
+                    Name = model.CreditCard.Name,
                     Type = "Credit Card Account",
                     OpenDate = DateTime.Now
                 };
@@ -244,6 +253,12 @@ namespace MScBank.Controllers
                     Type = "Loan Account",
                     OpenDate = DateTime.Now
                 };
+
+                //adding borrowed balance to CA
+                var ca = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount);
+
+                ca.Balance += loan.LendingAmount;
+
 
                 _context.Accounts.Add(newLoan);
                 _context.SaveChanges();

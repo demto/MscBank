@@ -8,8 +8,7 @@
 
     using(var _context = new ApplicationDbContext()) {
 
-        intoAccount = _context.Accounts.Where(a => a.SortCode == Model.ToAccountSC)
-                                        .Single(a => a.AccountNumber == Model.ToAccountAcNum);
+        intoAccount = _context.Accounts.Where(a => a.SortCode == Model.ToAccountSC).Single(a => a.AccountNumber == Model.ToAccountAcNum);
     }
 }
 
@@ -17,19 +16,19 @@
 
 <div class="row">
     <div class="col-md-6">
-        <p>Sending money FROM account : </p>
-        <p>Name of account : @Model.FromAccount.Name</p>
-        <p>Sort code : @Model.FromAccount.SortCode</p>
-        <p>Account Number : @Model.FromAccount.AccountNumber</p>
-        <p>Balance : @Model.FromAccount.Balance</p>
+        <p><span style="font-weight:bold">Sending money FROM account : </span></p>
+        <p><span style="font-weight:bold">Name of account : </span>@Model.FromAccount.Name</p>
+        <p><span style="font-weight:bold">Sort code : </span>@Model.FromAccount.SortCode</p>
+        <p><span style="font-weight:bold">Account Number : </span>@Model.FromAccount.AccountNumber</p>
+        <p><span style="font-weight:bold">Balance : </span>@Model.FromAccount.Balance</p>
         <br />
     </div>
     <div class="col-md-6">
-        <p>Sending money TO account : </p>
-        <p>Name of account : @intoAccount.Name</p>
-        <p>Sort code : @intoAccount.SortCode</p>
-        <p>Account Number : @intoAccount.AccountNumber</p>
-        <p>Balance : @intoAccount.Balance</p>
+        <p><span style="font-weight:bold">Sending money TO account : </span></p>
+        <p><span style="font-weight:bold">Name of account : </span>@intoAccount.Name</p>
+        <p><span style="font-weight:bold">Sort code : </span>@intoAccount.SortCode</p>
+        <p><span style="font-weight:bold">Account Number : </span>@intoAccount.AccountNumber</p>
+        <p><span style="font-weight:bold">Balance : </span>@intoAccount.Balance</p>
         <br />
     </div>
 </div>
@@ -38,6 +37,11 @@
         @Html.LabelFor(a => a.Amount)
         @Html.TextBoxFor(a => a.Amount, new { @class = "form-control" })
         @Html.ValidationMessageFor(a => a.Amount)
+        <br /><br />
+        @Html.HiddenFor(a => a.FromAccountId)
+        @Html.HiddenFor(a => a.ToAccountAcNum)
+        @Html.HiddenFor(a => a.ToAccountSC)
+        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
     }
     
 </div>

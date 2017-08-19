@@ -56,21 +56,21 @@ namespace MScBank.Controllers
                     return View(viewModel);
             }                
         }
-
-        [HttpPost]
+        
         public ActionResult CloseAccount(int accountId) {
             
             using(var _context = new ApplicationDbContext()) {
 
                 var account2remove = _context.Accounts.Single(a => a.Id == accountId);
-                
-                if(account2remove is CurrentAccount) {
+
+                if (account2remove is CurrentAccount) {
                     CurrentAccount account = account2remove as CurrentAccount;
                     if (account.HasCard()) {
                         BankCard card = _context.BankCards.Single(c => c.ParentAccount.Id == accountId);
                         _context.BankCards.Remove(card);
                     }
                 }
+
                 _context.Accounts.Remove(account2remove);
                 _context.SaveChanges();
                 
@@ -102,6 +102,8 @@ namespace MScBank.Controllers
         public ActionResult Transfer(TransferFundsViewModel viewModel) {
 
             using (var _context = new ApplicationDbContext()) {
+
+                var uId = User.Identity.GetUserId();
 
                 //creating return viewmodel
                 TransferFundsViewModel backViewModel = new TransferFundsViewModel {
@@ -137,13 +139,14 @@ namespace MScBank.Controllers
                     return View("TransferFunds", backViewModel);
                 }
 
-                
+
                 //creating and adding transaction
                 var transaction = new Transfer {
                     Amount = viewModel.Amount,
                     BankAccountBaseId = viewModel.FromAccountId,
                     ToAccountId = toAccount.Id,
-                    TransactionTimeStamp = DateTime.Now
+                    TransactionTimeStamp = DateTime.Now,
+                    CurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance
                 };
 
                 _context.Transactions.Add(transaction);
@@ -179,6 +182,112 @@ namespace MScBank.Controllers
 
                 return View("PayCredit", viewModel);
             }
+        }
+
+        public ActionResult PayLoan(int accountId) {
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var uId = User.Identity.GetUserId();
+
+
+                var fromAccount = _context.Accounts.Single(a => a.Id == accountId);
+                var toACcount = _context.Accounts.Where(a => a.Type == "Loan Account").Single(a => a.ApplicationUserId == uId);
+
+                //var transfer = new Transfer {
+                //     BankAccountBaseId = accountId
+                //};
+
+                var viewModel = new TransferFundsViewModel {
+                    FromAccount = fromAccount,
+                    FromAccountId = accountId,
+                    ToAccountAcNum = toACcount.AccountNumber,
+                    ToAccountSC = toACcount.SortCode
+                };
+
+                return View("PayCredit", viewModel);
+            }
+        }
+
+        public ActionResult PayMortgage(int accountId) {
+
+            using (var _context = new ApplicationDbContext()) {
+
+                var uId = User.Identity.GetUserId();
+
+
+                var fromAccount = _context.Accounts.Single(a => a.Id == accountId);
+                var toACcount = _context.Accounts.Where(a => a.Type == "Mortgage Account").Single(a => a.ApplicationUserId == uId);
+
+                //var transfer = new Transfer {
+                //     BankAccountBaseId = accountId
+                //};
+
+                var viewModel = new TransferFundsViewModel {
+                    FromAccount = fromAccount,
+                    FromAccountId = accountId,
+                    ToAccountAcNum = toACcount.AccountNumber,
+                    ToAccountSC = toACcount.SortCode
+                };
+
+                return View("PayCredit", viewModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Pay (TransferFundsViewModel model) {
+
+            using(var _context = new ApplicationDbContext()) {
+
+                //creating backviewmodel
+                var uId = User.Identity.GetUserId();
+                int aId = model.FromAccountId;
+
+                var fromAccount = _context.Accounts.Single(a => a.Id == aId);
+                var toAccount = _context.Accounts.Where(a => a.SortCode == model.ToAccountSC).Single(a => a.AccountNumber == model.ToAccountAcNum);
+
+                var backViewModel = new TransferFundsViewModel {
+                    FromAccount = fromAccount,
+                    FromAccountId = aId,
+                    ToAccountAcNum = toAccount.AccountNumber,
+                    ToAccountSC = toAccount.SortCode
+                };
+
+                //validating
+                if (!ModelState.IsValid) {
+
+                    
+                    return View("PayCredit", backViewModel);
+                }
+
+                //checking balance
+                decimal currentBalance = _context.Accounts.Single(a => a.Id == model.FromAccountId).Balance;
+
+                if (model.Amount > currentBalance) {
+
+                    return View("PayCredit", backViewModel);
+                }
+
+                //make the transaction
+
+                fromAccount.Balance -= model.Amount;
+                toAccount.Balance += model.Amount;
+
+
+                //creating and adding transaction
+
+                var transaction = new Transfer {
+                    Amount = model.Amount,
+                    BankAccountBaseId = model.FromAccountId,
+                    ToAccountId = toAccount.Id,
+                    TransactionTimeStamp = DateTime.Now,
+                    CurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance
+                };
+
+                _context.Transactions.Add(transaction);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index", "LoggedIn");
         }
     }
 }

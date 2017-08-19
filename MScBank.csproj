@@ -279,6 +279,10 @@
     <Compile Include="Migrations\201708190647238_AddedTransferClass1.Designer.cs">
       <DependentUpon>201708190647238_AddedTransferClass1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708191715354_AddedCurrentBalanceToTransaction.cs" />
+    <Compile Include="Migrations\201708191715354_AddedCurrentBalanceToTransaction.Designer.cs">
+      <DependentUpon>201708191715354_AddedCurrentBalanceToTransaction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -465,6 +469,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708190647238_AddedTransferClass1.resx">
       <DependentUpon>201708190647238_AddedTransferClass1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191715354_AddedCurrentBalanceToTransaction.resx">
+      <DependentUpon>201708191715354_AddedCurrentBalanceToTransaction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

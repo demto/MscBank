@@ -19,5 +19,7 @@ namespace MScBank.Models
         public BankAccountBase ParentAccount { get; set; }
 
         public int BankAccountBaseId { get; set; }
+
+        public decimal CurrentBalance { get; set; }
     }
 }
