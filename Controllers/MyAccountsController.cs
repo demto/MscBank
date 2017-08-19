@@ -41,7 +41,10 @@ namespace MScBank.Controllers
                 var currentUserAccount = _context.Accounts.SingleOrDefault(a => a.Id == accountId);
                 var card = _context.BankCards.SingleOrDefault(c => c.ParentAccount.Id == accountId);
                 var transactions = _context.Transactions.Where(t => t.ParentAccount.Id == accountId).ToList();
+                List<Transfer> transfers = _context.Transfers.Where(t => t.ToAccountId == accountId).ToList();
                 var myAccounts = _context.Accounts.Where(a => a.ApplicationUserId == currentUserId).ToList();
+
+                transactions.AddRange(transfers);
 
                 var viewModel = new MyAccountsViewmodel {
                     User = currentUser,
@@ -100,25 +103,56 @@ namespace MScBank.Controllers
 
             using (var _context = new ApplicationDbContext()) {
 
-                if (!ModelState.IsValid) {
+                //creating return viewmodel
+                TransferFundsViewModel backViewModel = new TransferFundsViewModel {
 
-                    var backViewModel = new TransferFundsViewModel {
+                    FromAccount = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId),
 
-                        FromAccount = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId),
-                         
-                    };
+                };
+
+                //validation
+                if (!ModelState.IsValid) {                   
 
                     return View("TransferFunds", backViewModel);
                 }
 
-            ApplicationUser user;
-            
+                //checking balance
+                decimal currentBalance = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId).Balance;
+                
+                if(viewModel.Amount > currentBalance) {
 
-                string uId = User.Identity.GetUserId();
-                user = _context.Users.Single(c => c.Id == uId);
+                    return View("TransferFunds", backViewModel);
+                }
+
+                //making the transaction
+                var fromAccount = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId);
+                var toAccount = _context.Accounts.Where(a => a.SortCode == viewModel.ToAccountSC)
+                                                 .Single(a => a.AccountNumber == viewModel.ToAccountAcNum);
+
+                //can only transfer to debit accounts
+                if(toAccount is CurrentAccount || toAccount is SavingsAccount) {
+                    fromAccount.Balance -= viewModel.Amount;
+                    toAccount.Balance += viewModel.Amount;
+                } else {
+                    return View("TransferFunds", backViewModel);
+                }
+
+                
+                //creating and adding transaction
+                var transaction = new Transfer {
+                    Amount = viewModel.Amount,
+                    BankAccountBaseId = viewModel.FromAccountId,
+                    ToAccountId = toAccount.Id,
+                    TransactionTimeStamp = DateTime.Now
+                };
+
+                _context.Transactions.Add(transaction);
+                _context.SaveChanges();
+
+                //string uId = User.Identity.GetUserId();
+                //user = _context.Users.Single(c => c.Id == uId);
             }
-            return RedirectToAction("Index", "LoggedIn");
-            //return View("TransferFunds", new { accountId = transfer.BankAccountBaseId });//, new { accountId = transfer.BankAccountBaseId });
+            return RedirectToAction("Index", "LoggedIn");            
         }
     }
 }
