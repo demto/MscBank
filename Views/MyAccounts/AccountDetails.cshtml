@@ -38,7 +38,7 @@
                 canHaveCard = true;
             }
 
-            cardMessage = canHaveCard.ToString();
+            cardMessage = canHaveCard ? "No cards with this account yet" : " You have a card with this already";
 
         } else {
             cardMessage = "This account type cannot have a card";
