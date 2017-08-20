@@ -344,7 +344,7 @@ namespace MScBank.Controllers
                     ExpiryDate = DateTime.Today.AddYears(2),
                     Status = BankCard.CardStatus.Open,
                     NameOnCard = user.FullName,
-                    PinNumber = account.Id,
+                    PinNumber = model.Card.PinNumber,
                     CardNumber = newCardId.ToString().PadLeft(16, '0')
                 };
 

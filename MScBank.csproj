@@ -313,6 +313,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BankAccountUtils\SavingsRate.cs" />
     <Compile Include="Utils\UserAccountUtils\LoadUser.cs" />
+    <Compile Include="ViewModels\ATMLoggedInViewModel.cs" />
     <Compile Include="ViewModels\CcPurchaseViewModel.cs" />
     <Compile Include="ViewModels\MyAccountsViewmodel.cs" />
     <Compile Include="ViewModels\NewAccountViewModel.cs" />
@@ -396,6 +397,7 @@
     <Content Include="Views\MyAccounts\OrderCardForm.cshtml" />
     <Content Include="Views\MyAccounts\CcPurchase.cshtml" />
     <Content Include="Views\ATM\Index.cshtml" />
+    <Content Include="Views\ATM\LoggedIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -36,7 +36,7 @@
 
     using (var _context = new ApplicationDbContext()) {
         if (Model.MyAccount is CurrentAccount) {
-            var card = _context.BankCards.Single(c => c.BankAccountBaseId == Model.MyAccount.Id);
+            var card = _context.BankCards.SingleOrDefault(c => c.BankAccountBaseId == Model.MyAccount.Id);
             if (card == null) {
                 canHaveCard = true;
             }
@@ -238,7 +238,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-sm pull-left" data-dismiss="modal">Cancel</button>
-                @if (ca != null) { if (!ca.HasCard()) {@Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin pull-right" })}}
+                @if (ca != null) { if (canHaveCard) {@Html.ActionLink("Order Card", "OrderCard", "MyAccounts", new { accountId = Model.MyAccount.Id }, new { @class = "btn btn-primary btn-sm addMargin pull-right" })}}
             </div>
         </div>
 
