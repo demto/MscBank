@@ -183,6 +183,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddAccountController.cs" />
+    <Compile Include="Controllers\ATMController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoggedInController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -394,6 +395,7 @@
     <Content Include="Views\MyAccounts\PayCredit.cshtml" />
     <Content Include="Views\MyAccounts\OrderCardForm.cshtml" />
     <Content Include="Views\MyAccounts\CcPurchase.cshtml" />
+    <Content Include="Views\ATM\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

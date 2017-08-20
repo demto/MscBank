@@ -1,0 +1,24 @@
+﻿@model MScBank.Models.BankCard
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="center-block">WELCOME to MSC BANK ATM</h2>
+<br /><br />
+
+<div class="form-group">
+    @using (Html.BeginForm("Login", "ATM")) {
+        @Html.LabelFor(c => c.CardNumber)
+        @Html.TextBoxFor(c => c.CardNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.CardNumber)
+        <br />
+        @Html.LabelFor(c => c.PinNumber)
+        @Html.TextBoxFor(c => c.PinNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.PinNumber)
+        <br /><br />
+        <button type="submit" class="btn btn-primary btn-lg">Start</button>
+    }
+   
+</div>
+
+

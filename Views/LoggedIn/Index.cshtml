@@ -4,21 +4,27 @@
     ViewBag.Title = "Index";
 }
 
+<h1 class="center-block">WELCOME @Model.FullName</h1>
+<br /><br />
 <div>
-    <h1 class="center-block">WELCOME @Model.FullName</h1>
-
-    <div class="col-mid-6" style="background-color : aqua">
+    <div class="col-md-4">
         <div>
-            <p>@Html.ActionLink("My Accounts", "Index", "MyAccounts", new { id = Model.Id }, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            <p class="center-block">@Html.ActionLink("My Accounts", "Index", "MyAccounts", new { id = Model.Id }, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            <br /><br />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            <img class="center-block" src="~/Content/Pics/LoggedINIndexPic.jpg" class="img-responsive img-rounded center-block"/>
+        </div>
+    </div> 
+    <div class="col-md-4">
+        <div>
             <p>@Html.ActionLink("Apply for new a account", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
         </div>
     </div>
-    <div class="col-mid-6" style="background-color : Orange">
-        <div>
-            <img src="~/Content/Pics/LoggedINIndexPic.jpg" class="img-responsive img-rounded center-block"/>
-        </div>
-    </div> 
 </div>
+<br /> <br />
        
 
 
