@@ -130,7 +130,7 @@ namespace MScBank.Controllers
                 //making the transaction
                 var fromAccount = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId);
                 var toAccount = _context.Accounts.Where(a => a.SortCode == viewModel.ToAccountSC)
-                                                 .Single(a => a.AccountNumber == viewModel.ToAccountAcNum);
+                                                 .First(a => a.AccountNumber == viewModel.ToAccountAcNum);
 
                 //can only transfer to debit accounts
                 if(toAccount is CurrentAccount || toAccount is SavingsAccount) {
@@ -147,7 +147,9 @@ namespace MScBank.Controllers
                     BankAccountBaseId = viewModel.FromAccountId,
                     ToAccountId = toAccount.Id,
                     TransactionTimeStamp = DateTime.Now,
-                    CurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance
+                    ToCurrentBalance = toAccount.Balance,
+                    FromCurrentBalance = fromAccount.Balance,
+                    Description = $"Transfer from {fromAccount.AccountNumber} to {toAccount.AccountNumber}"
                 };
 
                 _context.Transactions.Add(transaction);
@@ -168,7 +170,7 @@ namespace MScBank.Controllers
 
 
                 var fromAccount = _context.Accounts.Single(a => a.Id == accountId);
-                var toACcount = _context.Accounts.Where(a => a is CreditCard).Single(a => a.ApplicationUserId == uId);
+                var toAccount = _context.Accounts.Where(a => a is CreditCard).Single(a => a.ApplicationUserId == uId);
 
                 //var transfer = new Transfer {
                 //     BankAccountBaseId = accountId
@@ -177,8 +179,8 @@ namespace MScBank.Controllers
                 var viewModel = new TransferFundsViewModel {
                     FromAccount = fromAccount,
                     FromAccountId = accountId,
-                    ToAccountAcNum = toACcount.AccountNumber,
-                    ToAccountSC = toACcount.SortCode
+                    ToAccountAcNum = toAccount.AccountNumber,
+                    ToAccountSC = toAccount.SortCode
                 };
 
                 return View("PayCredit", viewModel);
@@ -282,7 +284,9 @@ namespace MScBank.Controllers
                     BankAccountBaseId = model.FromAccountId,
                     ToAccountId = toAccount.Id,
                     TransactionTimeStamp = DateTime.Now,
-                    CurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance
+                    ToCurrentBalance = toAccount.Balance,
+                    FromCurrentBalance = fromAccount.Balance,
+                    Description = $"Payment from {fromAccount.AccountNumber}"
                 };
 
                 _context.Transactions.Add(transaction);
@@ -309,6 +313,14 @@ namespace MScBank.Controllers
         public ActionResult processCardOrder(OrderCardFormViewModel model) {
 
             using(var _context = new ApplicationDbContext()) {
+
+                //Create viewmodel to return
+                var backModel = model;
+
+                //validation
+                if (!ModelState.IsValid) {
+                    return View("OrderCardForm", backModel);
+                }
 
                 string uId = User.Identity.GetUserId();
                 var user = _context.Users.Single(u => u.Id == uId);
@@ -342,6 +354,61 @@ namespace MScBank.Controllers
                     return RedirectToAction("Index", "LoggedIn");
             }
             
+        }
+
+        public ActionResult CcPurchase(int accountId) {
+
+            using(var _context = new ApplicationDbContext()) {
+
+                var ccAccount = _context.Accounts.Single(a => a.Id == accountId);
+
+                var model = new CcPurchaseViewModel {
+                    Cc = (CreditCard) ccAccount
+                };
+
+                return View("CcPurchase", model);
+
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult ProcessCcPurchase(CcPurchaseViewModel model) {
+            using (var _context = new ApplicationDbContext()) {
+
+                CreditCard account = _context.Accounts.Single(a => a.Id == model.Cc.Id) as CreditCard;
+
+                //Create viewmodel to return
+                var backModel = model;
+
+                //validation
+                if (!ModelState.IsValid) {
+                    return View("CcPurchase", backModel);
+                }
+
+                //check available balance
+                if (model.Transaction.Amount > (account.Limit - (-account.Balance))) {
+                    return View("CcPurchase", backModel);
+                }
+
+                //process purchase
+                account.Balance -= model.Transaction.Amount;
+
+                //create transaction
+                var transaction = new Transaction {
+                    Amount = model.Transaction.Amount,
+                    Description = model.Transaction.Description,
+                    FromCurrentBalance = model.Cc.Balance,
+                    TransactionTimeStamp = DateTime.Now,
+                    BankAccountBaseId = model.Cc.Id
+                };
+
+                //update db
+                _context.Transactions.Add(transaction);
+                _context.SaveChanges();
+            }
+            
+            return RedirectToAction("Index", "LoggedIn");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace MScBank.Models
         public int Id { get; set; }
 
         [Required]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Only digits are allowed")]
         public decimal Amount { get; set; }
 
         public DateTime? TransactionTimeStamp { get; set; }
@@ -20,6 +21,10 @@ namespace MScBank.Models
 
         public int BankAccountBaseId { get; set; }
 
-        public decimal CurrentBalance { get; set; }
+        public decimal FromCurrentBalance { get; set; }
+
+        public decimal ToCurrentBalance { get; set; }
+
+        public string Description { get; set; }
     }
 }

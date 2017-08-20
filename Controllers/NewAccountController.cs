@@ -100,7 +100,7 @@ namespace MScBank.Controllers
                         Amount = account.Balance,
                         TransactionTimeStamp = DateTime.Now,
                         BankAccountBaseId = account.Id,
-                        CurrentBalance = account.Balance
+                        ToCurrentBalance = account.Balance
                     };
 
                     _context.Transactions.Add(transaction);
@@ -150,7 +150,7 @@ namespace MScBank.Controllers
                     Amount = account.Balance,
                     TransactionTimeStamp = DateTime.Now,
                     BankAccountBaseId = account.Id,
-                    CurrentBalance = account.Balance
+                    ToCurrentBalance = account.Balance
                 };
 
                 _context.Transactions.Add(transaction);
@@ -259,6 +259,9 @@ namespace MScBank.Controllers
                     OpenDate = DateTime.Now
                 };
 
+                //save newloan
+                _context.Accounts.Add(newLoan);
+                _context.SaveChanges();
 
                 //adding borrowed balance to CA
                 var ca = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount);
@@ -271,11 +274,11 @@ namespace MScBank.Controllers
                     BankAccountBaseId = loan.Id,
                     ToAccountId = ca.Id,
                     TransactionTimeStamp = DateTime.Now,
-                    CurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance
+                    ToCurrentBalance = _context.Accounts.Where(a => a.ApplicationUserId == uId).First(a => a is CurrentAccount).Balance,
+                    FromCurrentBalance = _context.Accounts.Single(a => a.Id == loan.Id).Balance
                 };
 
                 _context.Transactions.Add(transaction);
-                _context.Accounts.Add(newLoan);
                 _context.SaveChanges();
             }
 

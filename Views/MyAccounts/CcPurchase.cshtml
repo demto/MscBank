@@ -1,0 +1,34 @@
+﻿@model MScBank.ViewModels.CcPurchaseViewModel
+@{
+    ViewBag.Title = "CcPurchase";
+}
+
+<h2>Purchase details</h2>
+
+<p><span style="font-weight : bold">Account Name : @Model.Cc.Name</span></p>
+<p><span style="font-weight : bold">Sort Code : @Model.Cc.SortCode</span></p>
+<p><span style="font-weight : bold">Account Number : @Model.Cc.AccountNumber</span></p>
+<p><span style="font-weight : bold">Account Limit : @Model.Cc.Limit</span></p>
+<p><span style="font-weight : bold">Account available balance : @Model.Cc.Balance</span></p>
+
+@using(Html.BeginForm("ProcessCcPurchase", "MyAccounts")) {
+    <br /><br />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Transaction.Amount)
+        @Html.TextBoxFor(m => m.Transaction.Amount, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Transaction.Amount)
+        <br /><br />
+        @Html.LabelFor(m => m.Transaction.Description)
+        @Html.TextAreaFor(m => m.Transaction.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Transaction.Description)
+        <br /><br />
+
+        @Html.HiddenFor(m => m.Cc.Id)
+        @Html.HiddenFor(m => m.Cc.Balance)
+        @Html.HiddenFor(m => m.Cc.Name)
+        @Html.HiddenFor(m => m.Cc.ApplicationUserId)
+        <button type="submit" class="btn btn-sm btn-primary">Make Purchase</button>
+    </div>
+    
+}
+

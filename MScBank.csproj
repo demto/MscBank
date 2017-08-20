@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201708191823113_AddedNameOnCardToBankCard.Designer.cs">
       <DependentUpon>201708191823113_AddedNameOnCardToBankCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708200812110_FewChanges.cs" />
+    <Compile Include="Migrations\201708200812110_FewChanges.Designer.cs">
+      <DependentUpon>201708200812110_FewChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -308,6 +312,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BankAccountUtils\SavingsRate.cs" />
     <Compile Include="Utils\UserAccountUtils\LoadUser.cs" />
+    <Compile Include="ViewModels\CcPurchaseViewModel.cs" />
     <Compile Include="ViewModels\MyAccountsViewmodel.cs" />
     <Compile Include="ViewModels\NewAccountViewModel.cs" />
     <Compile Include="ViewModels\OrderCardFormViewModel.cs" />
@@ -388,6 +393,7 @@
     <Content Include="Views\MyAccounts\TransferFunds.cshtml" />
     <Content Include="Views\MyAccounts\PayCredit.cshtml" />
     <Content Include="Views\MyAccounts\OrderCardForm.cshtml" />
+    <Content Include="Views\MyAccounts\CcPurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -481,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708191823113_AddedNameOnCardToBankCard.resx">
       <DependentUpon>201708191823113_AddedNameOnCardToBankCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708200812110_FewChanges.resx">
+      <DependentUpon>201708200812110_FewChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

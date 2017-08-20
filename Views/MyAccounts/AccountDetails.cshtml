@@ -4,6 +4,9 @@
     ViewBag.Title = "AccountDetails";
 }
 @{ 
+
+    string balanceColor = Model.MyAccount.Balance > 0 ? "text-success" : "text-danger";
+
     <!--Modal logic-->
     string popupMessage = "modal";
     string targetId = "nonZeroBalanceClosure";
@@ -90,22 +93,22 @@
 
     }
 
-    if (Model.MyAccount is Mortgage) {
+    //if (Model.MyAccount is Mortgage) {
 
-        Mortgage loan = (Mortgage)Model.MyAccount;
-        mortgageTerm = loan.Term;
-        int elapsedTerm = DateTime.Now.Year - Model.MyAccount.OpenDate.Year;
+    //    Mortgage loan = (Mortgage)Model.MyAccount;
+    //    mortgageTerm = loan.Term;
+    //    int elapsedTerm = DateTime.Now.Year - Model.MyAccount.OpenDate.Year;
 
-        if (DateTime.Now.Month < Model.MyAccount.OpenDate.Month ||
-            (DateTime.Now.Month == Model.MyAccount.OpenDate.Month && DateTime.Now.Day < Model.MyAccount.OpenDate.Day)) {
-            elapsedTerm--;
-        }
+    //    if (DateTime.Now.Month < Model.MyAccount.OpenDate.Month ||
+    //        (DateTime.Now.Month == Model.MyAccount.OpenDate.Month && DateTime.Now.Day < Model.MyAccount.OpenDate.Day)) {
+    //        elapsedTerm--;
+    //    }
 
-        int remainingTerm = loan.Term - elapsedTerm;
+    //    int remainingTerm = loan.Term - elapsedTerm;
 
-        mortgageRemainingTermString = remainingTerm.ToString();
+    //    mortgageRemainingTermString = remainingTerm.ToString();
 
-    }
+    //}
 
 
 }
@@ -118,6 +121,7 @@
             <p><span style="font-weight:bold">Name of Account : </span>@Model.MyAccount.Name</p>
             <p><span style="font-weight:bold">Type of account : </span> @Model.MyAccount.Type</p>
             @if (Model.MyAccount is CreditCard) { <p><span style="font-weight:bold">Limit : </span> @cc.Limit</p>}
+            <p><span class="balanceColor" style="font-weight:bold">Balance : </span> @Model.MyAccount.Balance</p>
             <p><span style="font-weight:bold"> Existing Card for the account : </span>@cardMessage</p>          
             <p><span style="font-weight:bold">Sort code : </span>@Model.MyAccount.SortCode</p>
             <p><span style="font-weight:bold">Account Number : </span>@Model.MyAccount.AccountNumber</p>
@@ -162,18 +166,18 @@
                         <th>Time of transaction</th>
                         <th>Amount</th>
                         <th>Account Balance after transaction</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                         @foreach (var t in Model.Transactions.OrderBy(t => t.TransactionTimeStamp)) {
 
-                            string balanceColor = Model.MyAccount.Balance > 0 ? "text-success" : "text-danger";
-
                             <tr>
-                                <td class="balanceColor">@t.Id</td>
-                                <td class="balanceColor">@t.TransactionTimeStamp</td>
+                                <td>@t.Id</td>
+                                <td>@t.TransactionTimeStamp</td>
                                 <td class="balanceColor">@t.Amount</td>
-                                <td class="balanceColor">@t.CurrentBalance</td>
+                                <td class="balanceColor">@t.FromCurrentBalance</td>
+                                <td>@t.Description</td>
                             </tr>                            
                         }
                 </tbody>
