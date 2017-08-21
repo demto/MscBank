@@ -1,4 +1,5 @@
 ﻿@model MScBank.ViewModels.ATMLoggedInViewModel
+    @using System
 @{
     ViewBag.Title = "LoggedIn";
 }
@@ -6,11 +7,74 @@
 <h2 class="text-success">You are now Logged in to your Online ATM! WELCOME!</h2>
 <br />
 <div class="col-md-2 bordered-box">
-    1       
+   <button type="button" 
+           class="btn btn-primary" 
+           style ="height : 20%; width : 85%" 
+           onclick='document.getElementById("balance").innerHTML = "Your Balance is : @string.Format("{0:C}", Model.Account.Balance)"'>
+    Check Balance
+   </button>     
+   
+    <br /><br /><br /><br />
+   
+    <button type="button" 
+            class="btn btn-primary" 
+            style ="height : 20%; width : 85%"
+            onclick='document.getElementById("withdrawForm").style.display = "block"'>
+    Withdraw
+    </button>
+    <br /><br /><br /><br />
+   <button type="button" 
+           class="btn btn-primary" 
+           style ="height : 20%; width : 85%"
+           onclick='document.getElementById("depositForm").style.display ="block"'>
+    Deposit
+   </button>
+
+    <br /><br /><br /><br />
+    <button type="button"
+            class="btn btn-primary"
+            style="height : 20%; width : 85%"
+            onclick='document.getElementById("ChangePin").style.display ="block"'>
+        Deposit
+    </button>
+
 </div>
-<div class="col-md-8 bordered-box">
-    2
+<div class="col-md-8">
+
+    <h1 id="balance""></h1>
+
+    <div id="withdrawForm" class="form-group" style="display : none">
+        @using (Html.BeginForm("Withdraw", "ATM")) {
+            @Html.LabelFor(t => t.Transaction.Amount)
+            @Html.TextBoxFor(t => t.Transaction.Amount, new {@class = "form-control"})
+            @Html.ValidationMessageFor(t => t.Transaction.Amount)
+            <button type="submit" class="btn btn-md">Withdraw</button>
+        }
+    </div>
+
+    <div id="depositForm" class="form-group" style="display : none">
+        @using (Html.BeginForm("Deposit", "ATM")) {
+            @Html.LabelFor(t => t.Transaction.Amount)
+            @Html.TextBoxFor(t => t.Transaction.Amount, new { @class = "form-control"})
+            @Html.ValidationMessageFor(t => t.Transaction.Amount)
+        <button type="submit" class="btn btn-md">Deposit</button>
+        }
+    </div>
+
+    <div id="depositForm" class="form-group" style="display : none">
+        @using (Html.BeginForm("ChangePIN", "ATM")) {
+            @Html.LabelFor(c => c.BankCard.PinNumber)
+            @Html.TextBoxFor(c => c.BankCard.PinNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(c => c.BankCard.PinNumber)
+            <button type="submit" class="btn btn-md">Change Pin</button>
+        }
+    </div>
+
 </div>
 <div class="col-md-2 bordered-box">
-    3
+    <button type="submit" class="btn btn-primary" style ="height : 20%; width : 85%">Change PIN</button>
+    <br /><br /><br /><br />
+    <br />
+    <br /><br /><br /><br />
+    <button type="submit" class="btn btn-primary" style ="height : 20%; width : 85%">Exit</button>
 </div>

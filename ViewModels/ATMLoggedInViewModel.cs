@@ -10,5 +10,7 @@ namespace MScBank.ViewModels {
         public BankCard BankCard { get; set; }
 
         public BankAccountBase Account { get; set; }
+
+        public Transaction Transaction { get; set; }
     }
 }

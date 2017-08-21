@@ -25,6 +25,7 @@ namespace MScBank.Controllers
 
             using(var _context = new ApplicationDbContext()) {
 
+                //get card and account from db
                 BankCard cardfromdb;
                 BankAccountBase accountfromdb;
 
@@ -36,7 +37,7 @@ namespace MScBank.Controllers
                     return RedirectToAction("Index");
                 }
 
-                
+                //validate pin number
                 if(cardfromdb.PinNumber != card.PinNumber) {
                     return View("Index");
                 } else {
@@ -48,8 +49,6 @@ namespace MScBank.Controllers
 
                     return View("LoggedIn", model);
                 }
-
-
             }
         }
     }
