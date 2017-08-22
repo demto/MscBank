@@ -1,0 +1,82 @@
+﻿@model MScBank.ViewModels.ATMLoggedInViewModel
+@using System
+@{
+    ViewBag.Title = "DepositForm";
+}
+
+<h2 class="text-success">Deposit</h2>
+<br />
+<div class="col-md-2 bordered-box">
+    @using (Html.BeginForm("Balance", "ATM")) {
+        @Html.HiddenFor(m => m.BankCard.Id)
+        <button type="submit"
+                class="btn btn-primary"
+                style="height : 20%; width : 85%">
+            Check Balance
+        </button>
+    }
+
+    <br /><br /><br /><br />
+
+    @using (Html.BeginForm("WithdrawForm", "ATM")) {
+        @Html.HiddenFor(m => m.BankCard.Id)
+        <button type="submit"
+                class="btn btn-primary"
+                style="height : 20%; width : 85%">
+            Withdraw
+        </button>
+    }
+
+    <br /><br /><br /><br />
+
+    @using (Html.BeginForm("DepositForm", "ATM")) {
+        @Html.HiddenFor(m => m.BankCard.Id)
+        <button type="submit"
+                class="btn btn-primary"
+                style="height : 20%; width : 85%">
+            Deposit
+        </button>
+    }
+
+
+</div>
+<div class="col-md-8">
+
+    <div id="withdrawForm" class="form-group">
+        @using (Html.BeginForm("Deposit", "ATM")) {
+            @Html.LabelFor(t => t.Transaction.Amount)
+            @Html.TextBoxFor(t => t.Transaction.Amount, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Transaction.Amount)
+
+            @Html.LabelFor(t => t.Transaction.Description)
+            @Html.TextBoxFor(t => t.Transaction.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Transaction.Description)
+
+            @Html.HiddenFor(m => m.BankCard.Id)
+            <button type="submit" class="btn btn-md">Deposit</button>
+        }
+    </div>
+
+</div>
+<div class="col-md-2 bordered-box">
+    @using (Html.BeginForm("ChangePin", "ATM")) {
+        @Html.HiddenFor(m => m.BankCard.Id)
+        <button type="submit"
+                class="btn btn-primary"
+                style="height : 20%; width : 85%">
+            Change PIN
+        </button>
+    }
+
+    <br /><br /><br /><br />
+    <br />
+    <br /><br /><br /><br />
+    @using (Html.BeginForm("Exit", "ATM")) {
+        @Html.HiddenFor(m => m.BankCard.Id)
+        <button type="submit"
+                class="btn btn-primary"
+                style="height : 20%; width : 85%">
+            Exit
+        </button>    }
+
+</div>

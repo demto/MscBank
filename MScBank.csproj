@@ -292,6 +292,26 @@
     <Compile Include="Migrations\201708200812110_FewChanges.Designer.cs">
       <DependentUpon>201708200812110_FewChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708221941335_AddedOldPinToBankCard.cs" />
+    <Compile Include="Migrations\201708221941335_AddedOldPinToBankCard.Designer.cs">
+      <DependentUpon>201708221941335_AddedOldPinToBankCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708222001092_RemovedRequiredFromOldPin.cs" />
+    <Compile Include="Migrations\201708222001092_RemovedRequiredFromOldPin.Designer.cs">
+      <DependentUpon>201708222001092_RemovedRequiredFromOldPin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708222003403_RemovedRequiredFromOldPin1.cs" />
+    <Compile Include="Migrations\201708222003403_RemovedRequiredFromOldPin1.Designer.cs">
+      <DependentUpon>201708222003403_RemovedRequiredFromOldPin1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708222004341_RemovedRequiredFromOldPinAgain.cs" />
+    <Compile Include="Migrations\201708222004341_RemovedRequiredFromOldPinAgain.Designer.cs">
+      <DependentUpon>201708222004341_RemovedRequiredFromOldPinAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708222012232_RemovedRequiredFromOldPinAgainAgain.cs" />
+    <Compile Include="Migrations\201708222012232_RemovedRequiredFromOldPinAgainAgain.Designer.cs">
+      <DependentUpon>201708222012232_RemovedRequiredFromOldPinAgainAgain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -398,6 +418,10 @@
     <Content Include="Views\MyAccounts\CcPurchase.cshtml" />
     <Content Include="Views\ATM\Index.cshtml" />
     <Content Include="Views\ATM\LoggedIn.cshtml" />
+    <Content Include="Views\ATM\Balance.cshtml" />
+    <Content Include="Views\ATM\WithdrawForm.cshtml" />
+    <Content Include="Views\ATM\DepositForm.cshtml" />
+    <Content Include="Views\ATM\ChangePin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -494,6 +518,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708200812110_FewChanges.resx">
       <DependentUpon>201708200812110_FewChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708221941335_AddedOldPinToBankCard.resx">
+      <DependentUpon>201708221941335_AddedOldPinToBankCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708222001092_RemovedRequiredFromOldPin.resx">
+      <DependentUpon>201708222001092_RemovedRequiredFromOldPin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708222003403_RemovedRequiredFromOldPin1.resx">
+      <DependentUpon>201708222003403_RemovedRequiredFromOldPin1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708222004341_RemovedRequiredFromOldPinAgain.resx">
+      <DependentUpon>201708222004341_RemovedRequiredFromOldPinAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708222012232_RemovedRequiredFromOldPinAgainAgain.resx">
+      <DependentUpon>201708222012232_RemovedRequiredFromOldPinAgainAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
