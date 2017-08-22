@@ -267,11 +267,11 @@ namespace MScBank.Controllers
                     BankCard = cardfromdb
                 };
                 
-                //if(viewModel.BankCard.OldPinNumber != cardfromdb.PinNumber) {
-                //    return View("LoggedIn", model);
-                //} else {
-                //    cardfromdb.PinNumber = viewModel.BankCard.PinNumber;
-                //}
+                if(viewModel.BankCard.OldNum != cardfromdb.PinNumber) {
+                    return View("LoggedIn", model);
+                } else {
+                    cardfromdb.PinNumber = viewModel.BankCard.PinNumber;
+                }
                 
                 _context.SaveChanges();
 

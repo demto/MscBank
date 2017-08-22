@@ -17,7 +17,10 @@ namespace MScBank.Models
         [Required]
         [RegularExpression("\\d{4}", ErrorMessage = "Account number must be numeric and 4 digits!")]
         public int PinNumber { get; set; }
-        
+
+        [RegularExpression("\\d{4}", ErrorMessage = "Account number must be numeric and 4 digits!")]
+        public int? OldNum { get; set; }
+
         public DateTime ExpiryDate { get; set; }
 
         public CardStatus Status { get; set; }

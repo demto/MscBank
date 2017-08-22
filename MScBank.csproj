@@ -312,6 +312,10 @@
     <Compile Include="Migrations\201708222012232_RemovedRequiredFromOldPinAgainAgain.Designer.cs">
       <DependentUpon>201708222012232_RemovedRequiredFromOldPinAgainAgain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708222021505_RemovedRequiredFromOldPinAgainAgainAgain.cs" />
+    <Compile Include="Migrations\201708222021505_RemovedRequiredFromOldPinAgainAgainAgain.Designer.cs">
+      <DependentUpon>201708222021505_RemovedRequiredFromOldPinAgainAgainAgain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankAccountBase.cs" />
@@ -533,6 +537,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708222012232_RemovedRequiredFromOldPinAgainAgain.resx">
       <DependentUpon>201708222012232_RemovedRequiredFromOldPinAgainAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708222021505_RemovedRequiredFromOldPinAgainAgainAgain.resx">
+      <DependentUpon>201708222021505_RemovedRequiredFromOldPinAgainAgainAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

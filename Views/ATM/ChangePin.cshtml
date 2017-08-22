@@ -45,9 +45,9 @@
     <div id="withdrawForm" class="form-group">
         @using (Html.BeginForm("ProcessChangePIn", "ATM")) {
             <p>Please enter your current PIN</p>
-            @Html.LabelFor(m => m.BankCard.OldPinNumber)
-            @Html.TextBoxFor(m => m.BankCard.OldPinNumber, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.BankCard.OldPinNumber)
+            @Html.LabelFor(m => m.BankCard.OldNum)
+            @Html.TextBoxFor(m => m.BankCard.OldNum, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.BankCard.OldNum)
 
             <p>Please enter the new PIN</p>
             @Html.LabelFor(m => m.BankCard.PinNumber)
