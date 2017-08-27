@@ -124,11 +124,11 @@ namespace MScBank.Controllers
 
                     return View("TransferFunds", backViewModel);
                 }
-
+                
                 //checking balance
                 decimal currentBalance = _context.Accounts.Single(a => a.Id == viewModel.FromAccountId).Balance;
                 
-                if(viewModel.Amount > currentBalance) {
+                if(viewModel.Amount > currentBalance || viewModel.Amount < 0) {
 
                     return View("TransferFunds", backViewModel);
                 }
