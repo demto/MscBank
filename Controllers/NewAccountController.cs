@@ -219,6 +219,10 @@ namespace MScBank.Controllers
 
                 return View("LoanForm");
             }
+
+            if (loan.Term > 7 || loan.Term < 1 || loan.LendingAmount < 1000 || loan.LendingAmount > 25000) {
+                return View("LoanForm");
+            }
              
 
             using (var _context = new ApplicationDbContext()) {
@@ -290,6 +294,10 @@ namespace MScBank.Controllers
 
             if (!ModelState.IsValid) {
 
+                return View("MortgageForm");
+            }
+
+            if(mortgage.Term > 35 || mortgage.Term < 5 || mortgage.LendingAmount < 5000) {
                 return View("MortgageForm");
             }
             
