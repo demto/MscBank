@@ -199,7 +199,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-danger">Invalid operation request</h4>
+                <h4 class="modal-title text-danger">Request Warning</h4>
             </div>
             <div class="modal-body">
                 <p>You are trying to close an account!</p>
@@ -226,9 +226,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 @if (ca != null) {
-                    if (!ca.HasCard()) {<h4 class="modal-title text-success">Ordering Card for account</h4>}
+                    if (canHaveCard) {<h4 class="modal-title text-success">Ordering Card for account</h4>}
                 }
-                @if (ca != null){ if(ca.HasCard()){ <h4 class="modal-title text-danger">Invalid card order</h4> } }
+                @if (ca != null){ if(!canHaveCard){ <h4 class="modal-title text-danger">Invalid card order</h4> } }
             </div>
             <div class="modal-body">
                 <p>You are processing a card order!</p>
