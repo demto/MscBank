@@ -63,7 +63,11 @@ namespace MScBank.Controllers
 
                 var account2remove = _context.Accounts.Single(a => a.Id == accountId);
 
-                _context.Accounts.Remove(account2remove);
+                if(account2remove is LendingAccount) {
+                    if(account2remove.Balance < 0) {
+                        return RedirectToAction("Index", "LoggedIn");
+                    }
+                }
 
                 if (account2remove is CurrentAccount) {
                     CurrentAccount account = account2remove as CurrentAccount;
@@ -73,6 +77,8 @@ namespace MScBank.Controllers
                        
                     }
                 }
+
+                _context.Accounts.Remove(account2remove);
 
                 _context.SaveChanges();
             }
