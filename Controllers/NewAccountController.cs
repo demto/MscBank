@@ -66,6 +66,7 @@ namespace MScBank.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateCurrentAccount(CurrentAccount account) {
 
             if (!ModelState.IsValid) {
@@ -116,6 +117,7 @@ namespace MScBank.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateSavingsAccount(SavingsAccount account) {
 
             if (!ModelState.IsValid) {
@@ -163,6 +165,7 @@ namespace MScBank.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateCreditCardAccount(NewAccountViewModel model) {
 
             if (!ModelState.IsValid) {
@@ -213,6 +216,7 @@ namespace MScBank.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateLoanAccount(Loan loan) {
 
             if (!ModelState.IsValid) {
@@ -290,6 +294,7 @@ namespace MScBank.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateMortgageAccount(Mortgage mortgage) {
 
             if (!ModelState.IsValid) {

@@ -27,5 +27,17 @@ namespace MScBank.Controllers
             }
                 
         }
+
+        public ActionResult MyDetails() {
+
+            using(var _context = new ApplicationDbContext()) {
+                var userId = User.Identity.GetUserId();
+                var user = _context.Users.Single(u => u.Id == userId);
+
+
+            return View(user);
+            }
+            
+        }
     }
 }

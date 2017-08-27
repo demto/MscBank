@@ -427,6 +427,7 @@
     <Content Include="Views\ATM\DepositForm.cshtml" />
     <Content Include="Views\ATM\ChangePin.cshtml" />
     <Content Include="Views\Home\TAndC.cshtml" />
+    <Content Include="Views\LoggedIn\MyDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

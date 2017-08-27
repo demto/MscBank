@@ -41,5 +41,6 @@
         @Html.TextBoxFor(m => m.Loan.Name, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Loan.Name)
     </div>
+    @Html.AntiForgeryToken()
     <button class="btn btn-primary" type="submit">Open</button>
 }

@@ -6,25 +6,28 @@
 
 <h1 class="center-block">WELCOME @Model.FullName</h1>
 <br /><br />
-<div>
-    <div class="col-md-4">
+<div class="row">
+    <div class="col-md-6">
         <div>
             <p class="center-block">@Html.ActionLink("My Accounts", "Index", "MyAccounts", new { id = Model.Id }, new { @class = "btn btn-primary btn-lg addMargin" })</p>
             <br /><br />
+            <div>
+                <p>@Html.ActionLink("Apply for new a account", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div>
+            <br /><br />
+            <div>
+                <p>@Html.ActionLink("My details", "MyDetails", "LoggedIn", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div>
-            <img class="center-block" src="~/Content/Pics/LoggedINIndexPic.jpg" class="img-responsive img-rounded center-block"/>
+            <img src="~/Content/Pics/LoggedINIndexPic.jpg" class="img-responsive img-rounded center-block"/>
         </div>
     </div> 
-    <div class="col-md-4">
-        <div>
-            <p>@Html.ActionLink("Apply for new a account", "Index", "NewAccount", null, new { @class = "btn btn-primary btn-lg addMargin" })</p>
-        </div>
-    </div>
 </div>
 <br /> <br />
+
        
 
 
