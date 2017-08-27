@@ -15,14 +15,20 @@ namespace MScBank.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "About MSc Bank.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "MSc Bank contact page.";
+
+            return View();
+        }
+
+        public ActionResult TAndC() {
+            ViewBag.Message = "Terms and conditions";
 
             return View();
         }
